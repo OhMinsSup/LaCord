@@ -8,6 +8,7 @@ import cors from './lib/middlewares/cors';
 
 const app = new Koa();
 
+//  inti database
 db();
 
 app.use(cors);
