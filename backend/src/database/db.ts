@@ -1,6 +1,9 @@
 import { createConnection } from 'typeorm';
+import  * as pg from 'pg';
 import "reflect-metadata";
 import { DATABASE_HOST, DATABASE_PORT, DATABASE_USERNAME, DATABASE_PASSWORD, DATA_BASE } from '../config/config';
+
+(pg as any).defaults.parseInt8 = true; // fixes issue: umbers returning as string.
 
 const db = async () => {
     return await createConnection({

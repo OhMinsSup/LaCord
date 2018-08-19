@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { hash } from '../../lib/common';
 
 @Entity('user')
 class User {
@@ -27,6 +28,11 @@ class User {
 
     @CreateDateColumn()
     public updated_at: number;
+
+    validatePassword(password: string) {
+        const hashed: string = hash(password);
+        return this.password === hashed;
+    }
 }
 
 export default User;
