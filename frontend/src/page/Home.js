@@ -1,13 +1,11 @@
 import React from 'react';
 import PageTemplate from '../components/base/PageTemplate';
-import HeaderContaienr from '../containers/base/HeaderContaienr';
+import LandingTemplateContainer from '../containers/landing/LandingTemplateContainer';
 
 const Home = () => {
     return (
-        <PageTemplate
-            header={<HeaderContaienr />}
-        >
-            하하하하
+        <PageTemplate>
+            <LandingTemplateContainer />
         </PageTemplate>
     )
 }

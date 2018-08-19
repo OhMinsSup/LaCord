@@ -6,30 +6,17 @@ import styles from './PageTemplate.scss';
 const cx = classNames.bind(styles);
 
 type Props = {
-  header?: Node,
+  header: Node,
   children: Node,
-  responsive?: any,
-  padding?: any,
-  mobileNoPadding?: any
 }
 
-const PageTemplate = ({ header, children, responsive, padding, mobileNoPadding }: Props) => {
-    return (
-      <div className={cx('page')}>
-        <header>
-          {header}
-        </header>
-        { header && <div>사이드바</div> }
-        
-        <main className={cx('content', {
-          padding: padding, 
-          responsive,
-          'mobile-no-padding': mobileNoPadding
-        })}>
-          {children}
-        </main>
-      </div>
-    );
-  };
+const PageTemplate = ({ header, children }: Props) => {
+  return (
+    <div className={cx('page-template')}>
+      {header}
+      <main>{children}</main>
+    </div>    
+  );
+};
   
-  export default PageTemplate;
+export default PageTemplate;
