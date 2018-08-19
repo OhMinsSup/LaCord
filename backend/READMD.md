@@ -27,7 +27,7 @@ POST
 * HTTP Status code 201
 
 * response
-    ```json
+    ```javascript
     { 
        user: {
             id: 유저의 uuid값,
@@ -43,7 +43,7 @@ POST
 * HTTP Status code 404
     
     데이터 파라미터 유효성 검사 실패
-    ```json
+    ```javascript
         {
             "isJoi": true,
             "name": "ValidationError",
@@ -69,14 +69,14 @@ POST
         }
     ```
 * HTTP Status code 409
-    ```json
+    ```javascript
         {
             name: 'DUPLICATED_ACCOUNT',
             payload: 'email' 또는 'username'
         }
     ```
 * HTTP Status code 500
-    ```json
+    ```javascript
         데이터베이스 오류 및 서버에러
     ```
 
@@ -108,7 +108,7 @@ POST
 * HTTP Status code 201
 
 * response
-    ```json
+    ```javascript
     { 
        user: {
             id: 유저의 uuid값,
@@ -124,7 +124,7 @@ POST
 * HTTP Status code 404
     
     데이터 파라미터 유효성 검사 실패
-    ```json
+    ```javascript
         {
             "isJoi": true,
             "name": "ValidationError",
@@ -150,14 +150,14 @@ POST
         }
     ```
 * HTTP Status code 409
-    ```json
+    ```javascript
         {
             name: 'ERROR EXIST',
             payload:  '계정을 찾을 수 없습니다.' 또는 '비밀 번호가 일치하지 않습니다.'
         }
     ```
 * HTTP Status code 500
-    ```json
+    ```javascript
         데이터베이스 오류 및 서버에러
     ```
 
