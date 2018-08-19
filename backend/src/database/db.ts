@@ -1,9 +1,11 @@
-import { createConnection } from 'typeorm';
+import { createConnection, Connection } from 'typeorm';
 import  * as pg from 'pg';
 import "reflect-metadata";
 import { DATABASE_HOST, DATABASE_PORT, DATABASE_USERNAME, DATABASE_PASSWORD, DATA_BASE } from '../config/config';
 
 (pg as any).defaults.parseInt8 = true; // fixes issue: umbers returning as string.
+
+let connection: Connection;
 
 const db = async () => {
     return await createConnection({
@@ -19,6 +21,7 @@ const db = async () => {
         synchronize: true
     })
     .then((c) => {
+        connection = c;
         console.log('Typeorm => LaCord DB connetion ✅');
     })
     .catch(e => {
@@ -26,4 +29,11 @@ const db = async () => {
     })
 }
 
-export default db;
+const disconnect = async () => {
+    return connection.close();
+}
+
+export {
+    db,
+    disconnect
+};

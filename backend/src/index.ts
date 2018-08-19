@@ -1,7 +1,8 @@
 import * as Koa from 'koa';
 import * as koaBody from 'koa-body';
+import * as http from 'http';
 import routes from './router';
-import db from'./database/db';
+import { db } from'./database/db';
 import { PORT } from './config/config';
 import tokenMiddleware from './lib/middlewares/tokenMiddleware';
 import cors from './lib/middlewares/cors';
@@ -18,8 +19,11 @@ app.use(koaBody({
 }));
 
 app.use(routes.routes()).use(routes.allowedMethods());
-    
-app.listen(PORT, () => {
-    console.log(`LaCord HTTP Server running on port ${PORT} ✅`);
-});
+  
 
+http.createServer(app.callback()).listen(PORT, () => {
+    console.log(`LaCord HTTP Server running on port ${PORT} ✅`);
+})
+
+
+export default app;
