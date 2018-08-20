@@ -2,3 +2,4 @@
 /dist
 src/config/config.ts
 /.webpack
+/__test__/__snapshots__

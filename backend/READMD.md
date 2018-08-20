@@ -178,3 +178,72 @@ POST
 ### Success Response
 
 * HTTP Status code 204
+
+## 4. 유효성 API
+
+> 이메일또는 유저명이 이미 존재하는지 검사하는 api
+
+### URL
+
+http://localhost:4000/auth/exists/:key(email|username)/:value
+
+
+### DataParams
+
+| key           | Description   | Type    |
+| :------------ | :-----------: | ------: |
+| key           | email/username| string  |
+| value         | valye         | string  |
+
+### Method
+
+GET
+
+### Success Response
+
+* HTTP Status code 204
+
+    ```javascript
+        {
+            // 존재할 경우 true 존재하지 않을 경우 false
+            exists: true or false
+        }
+    ```
+
+## 5. 체크 API
+
+> 로그인중인지 체크하는 api
+
+### URL
+
+http://localhost:4000/auth/check
+
+
+### Method
+
+GET
+
+### Success Response
+
+* HTTP Status code 204
+
+    ```javascript
+        {
+            user: {
+                id: "...",
+                username: "...",
+                password: "..."
+            }
+        }
+    ```
+
+### Error response
+
+* HTTP Status code 403
+
+    ```javascript
+        {
+            name: '세션이 존재하지 않습니다',
+            payload: null,
+        }
+    ```    

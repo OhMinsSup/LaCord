@@ -7,7 +7,7 @@ import { DATABASE_HOST, DATABASE_PORT, DATABASE_USERNAME, DATABASE_PASSWORD, DAT
 
 let connection: Connection;
 
-const db = async () => {
+const connect = async () => {
     return await createConnection({
         type: "postgres",
         host: DATABASE_HOST,
@@ -25,7 +25,7 @@ const db = async () => {
         console.log('Typeorm => LaCord DB connetion ✅');
     })
     .catch(e => {
-        console.log(e);
+        console.error(e);
     })
 }
 
@@ -34,6 +34,6 @@ const disconnect = async () => {
 }
 
 export {
-    db,
+    connect,
     disconnect
 };

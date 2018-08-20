@@ -139,3 +139,44 @@ export const logout: Middleware = (ctx: Context) => {
     ctx.cookies.set('access_token', null, {maxAge: 0, httpOnly: true});
     ctx.status = 204;
 }
+
+/**@return {void}
+ * @description 존재하는 이메일 또는 유저명인지 확인하는 api
+ * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ */
+export const exists: Middleware = async (ctx: Context): Promise<any> => {
+    const { key, value } = ctx.params;
+    console.log(key, value);
+    
+    const userCustomRespository = await getCustomRepository(UserRepository);
+
+    try {
+        const user = await (key === 'email' ? userCustomRespository.findUser('email', value) : userCustomRespository.findUser('username', value));
+    
+        ctx.body = {
+            exists: !!user,
+        }
+    } catch (e) {
+        ctx.throw(500, e);
+    }
+}
+
+/**@return {void}
+ * @description 현재 로그인 중인지 체크하는 api
+ * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ */
+export const check: Middleware = async (ctx: Context): Promise<any> => {
+    const user = ctx['user'];
+
+    if (!user) {
+        ctx.status = 403;
+        ctx.body = {
+            name: '세션이 존재하지 않습니다',
+            payload: null,
+        }
+        return;
+    }
+    ctx.body = {
+        user: user
+    };
+}
