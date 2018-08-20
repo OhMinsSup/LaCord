@@ -1,30 +1,79 @@
 @import 'utils';
 
 .header {
-    height: 3.5rem;
-    &.solid {
-        background: linear-gradient(to right, #276caf, #30a1c1);
-    }
-    transition: all 0.3s ease-in;
-    &.shadow {
-      background: linear-gradient(to right, #276caf, #30a1c1);
-      @include material-shadow(2, 0.75);
-    }
-    .responsive {
-        position: relative;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        width: 1200px;
-        margin: 0 auto;
-        transition: width .3s ease-in-out;
-        @include media("<x-large") {
-            width: 1024px;
-        }
-        @include media("<large") {
-            width: 100%;
-        }
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    right: 0px;
+    background: white;
+    @include material-shadow(1, 0.9);
+    z-index: 20;
+
+    .wrapper {
         display: flex;
-        height: 100%;
-        align-items: center;
+        justify-content: center;
+        height: auto;
+        .content {
+            width: 1200px;
+            height: 3.5rem;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            position: relative;
+            padding-right: 5%;
+            padding-left: 5%;
+
+            @include media("<wide") {
+                width: 1024px;
+            }
+            @include media("<x-large") {
+                width: 992px;
+            }
+
+            @include media("<large") {
+                width: 700px;
+            }
+            
+            @include media("<medium") {
+                width: 380px;
+            }      
+
+            @include media("<small") {
+                width: 100%;
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }  
+
+            .right-side {
+                .desktop-only {
+                  display: flex;
+                  transition: width .3s ease-in-out;
+                  @include media("<medium") {
+                    display: none;
+                  }
+                  .flex-box {
+                      display: flex;
+                    &.row {
+                        flex-direction: row;
+                    }
+                    &.column {
+                        flex-direction: column;
+                    }
+                    &.center {
+                        align-items: center;
+                        justify-content: center;
+                    }
+                  }
+                }
+                .mobile-only {
+                  @include media(">=medium") {
+                    display: none;
+                  }
+                }
+                margin-left: auto;
+            }
+        }
     }
 }

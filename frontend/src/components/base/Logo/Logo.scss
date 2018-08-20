@@ -1,0 +1,10 @@
+@import 'utils';
+
+.logo {
+    font-family: 'Inconsolata';
+    font-size: 1.5rem;
+    color: $oc-blue-4;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+}

@@ -32,4 +32,22 @@
       cursor: pointer;
     }
   }
+
+  &.invert {
+    border: 2px solid $oc-blue-4;
+    color: $oc-blue-4;
+    background: transparent;
+    transition: box-shadow .15s ease-in;
+    &:hover {
+      background: $oc-blue-4;
+      color: white;
+      @include material-shadow(2);
+    }
+    &:active {
+      @include material-shadow(2, 2);
+      background: rgb(230,230,230);
+      border: 2px solid rgb(230,230,230);
+      color: $oc-blue-5;
+    }
+  }
 }

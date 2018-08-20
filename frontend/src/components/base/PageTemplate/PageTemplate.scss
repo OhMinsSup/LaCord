@@ -1,8 +1,10 @@
 @import 'utils';
 
 .page-template {
+  header {
     height: 100%;
-    main {
-      height: 100%;
-    }
+  }
+  main {
+    height: 100%;
+  }
 }

@@ -1,18 +1,33 @@
 // @flow
 import React, { type Node } from 'react';
-import cx from 'classnames';
-import './Button.scss';
+import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
+import styles from './Button.scss';
+
+const cx = classNames.bind(styles);
 
 type Props = {
-  theme: void | 'default' | 'outline',
+  theme: void | 'default' | 'outline' | 'invert',
   children: Node,
+  to?: string,
+  className?: string
 };
 
-const Button = ({ theme, children, ...rest }: Props) => (
-  <button className={cx('Button', theme)} {...rest}>
-    {children}
-  </button>
-);
+const Button = ({ theme, children, to, className, ...rest }: Props) => {
+  const publicClassName = cx('Button', theme, className);
+  if (to) {
+      return (
+          <Link to={to} className={publicClassName} {...rest}>
+              {children}
+          </Link>
+      );
+  }
+  return (
+      <button className={publicClassName} {...rest}>
+          {children}
+      </button>
+  )
+};
 
 Button.defaultProps = {
   theme: 'default',

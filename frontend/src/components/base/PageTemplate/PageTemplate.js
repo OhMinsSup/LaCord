@@ -13,7 +13,7 @@ type Props = {
 const PageTemplate = ({ header, children }: Props) => {
   return (
     <div className={cx('page-template')}>
-      {header}
+      <header>{header}</header>
       <main>{children}</main>
     </div>    
   );
