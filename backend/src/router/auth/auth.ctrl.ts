@@ -23,9 +23,6 @@ export const localRegister: Middleware = async (ctx: Context): Promise<any> => {
 
     const result = Joi.validate(ctx.request.body, schema);
     
-    console.log(result);
-    
-
     if (result.error) {
         ctx.status = 404;
         ctx.body = result.error;
