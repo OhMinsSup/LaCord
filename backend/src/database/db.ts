@@ -18,6 +18,8 @@ const connect = async () => {
         entities: [
             __dirname + "/entity/*.js"
         ],
+        // dropSchema 및 synchronize는 개발용에서만
+        dropSchema: true,
         synchronize: true
     })
     .then((c) => {

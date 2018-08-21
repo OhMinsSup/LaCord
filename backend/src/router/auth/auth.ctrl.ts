@@ -65,7 +65,8 @@ export const localRegister: Middleware = async (ctx: Context): Promise<any> => {
             user: {
                 id: user.id,
                 username: user.username,
-                email: user.email
+                email: user.email,
+                thumbnail: user.thumbnail
             },
             token
         };
@@ -119,7 +120,8 @@ export const localLogin: Middleware = async (ctx: Context): Promise<any> => {
             user: {
                 id: user.id,
                 username: user.username,
-                email: user.email
+                email: user.email,
+                thumbnail: user.thumbnail
             },
             token
         };
@@ -143,7 +145,6 @@ export const logout: Middleware = (ctx: Context) => {
  */
 export const exists: Middleware = async (ctx: Context): Promise<any> => {
     const { key, value } = ctx.params;
-    console.log(key, value);
     
     const userCustomRespository = await getCustomRepository(UserRepository);
 
@@ -174,6 +175,6 @@ export const check: Middleware = async (ctx: Context): Promise<any> => {
         return;
     }
     ctx.body = {
-        user: user
+        user
     };
 }

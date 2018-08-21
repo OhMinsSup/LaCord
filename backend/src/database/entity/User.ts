@@ -13,6 +13,11 @@ class User {
     public username: string;
 
     @Column({
+        type: 'varchar',
+    })
+    public thumbnail: string;
+
+    @Column({
         type: "varchar",
         unique: true
     })
@@ -29,7 +34,7 @@ class User {
     @CreateDateColumn()
     public updated_at: number;
 
-    validatePassword(password: string) {
+    public validatePassword(password: string) {
         const hashed: string = hash(password);
         return this.password === hashed;
     }

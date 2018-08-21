@@ -5,13 +5,13 @@ import { generate } from '../../lib/token';
 
 @EntityRepository(User)
 class UserRepository extends Repository<User> {
-    findUser(type: 'email' | 'username', value: string) {
+    public findUser(type: 'email' | 'username', value: string) {
         return this.findOne({
             where: { [type]: value }
         });
     }
 
-    findByUserId(id: string) {
+    public findByUserId(id: string) {
         return this.findOne({
             where: {
                 id
@@ -19,7 +19,7 @@ class UserRepository extends Repository<User> {
         });
     }
 
-    localRegister(email: string, password: string, username: string) {
+    public localRegister(email: string, password: string, username: string) {
         const user = new User();
         user.username = username;
         user.email = email;
@@ -28,18 +28,19 @@ class UserRepository extends Repository<User> {
         return this.manager.save(user);
     }
 
-    async generateToken(userId: string): Promise<string> {    
+    public async generateToken(userId: string): Promise<string> {    
         const userData = await this.findByUserId(userId);
 
         if (!userData) {
             throw new Error('user not found');
         }
 
-        const { id, username, email } = userData;
+        const { id, username, email, thumbnail } = userData;
         const user = {
             id,
             username,
-            email
+            email,
+            thumbnail
         };
 
         return generate({ user });

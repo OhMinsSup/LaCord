@@ -34,11 +34,10 @@ describe('Auth API', () => {
         const response = await request(server.callback())
         .post('/auth/register/local')
         .send({ 
-            username: username, 
-            password: password, 
-            email: email 
-        })
-        .expect(200)
+            username, 
+            password, 
+            email 
+        });
 
         expect(response.status).toEqual(200);
         expect(response.type).toEqual("application/json");
@@ -51,10 +50,9 @@ describe('Auth API', () => {
         const response = await request(server.callback())
         .post('/auth/login/local')
         .send({
-            email: email,
-            password: password
-        })
-        .expect(200)
+            email,
+            password
+        });
 
         expect(response.status).toEqual(200);
         expect(response.type).toEqual("application/json");
@@ -84,10 +82,31 @@ describe('Auth API', () => {
 
     it('Logout API', async () => {
         const response = await request(server.callback())
-        .post('/auth/logout')
-        .expect(204);
+        .post('/auth/logout');
         
         expect(response.status).toEqual(204);
+    })
+
+    it('Exists Username API', async () => {
+        const response = await request(server.callback())
+        .get('/exists/username/test');
+
+        expect(response.status).toEqual(200);
+        expect(response.type).toEqual("application/json");
+        expect(Object.keys(response.body)).toEqual(
+            expect.arrayContaining(["exists"])
+        );
+    })
+
+    it('Exists Email API', async () => {
+        const response = await request(server.callback())
+        .get('/exists/email/test@test.com');
+
+        expect(response.status).toEqual(200);
+        expect(response.type).toEqual("application/json");
+        expect(Object.keys(response.body)).toEqual(
+            expect.arrayContaining(["exists"])
+        );
     })
 })
 

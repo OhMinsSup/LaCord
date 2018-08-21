@@ -32,7 +32,8 @@ POST
        user: {
             id: 유저의 uuid값,
             username: 유저의 유저명,
-            password: 유저의 비밀번호
+            password: 유저의 비밀번호,
+            thumbnail: 썸네일
        },
         token: jwt 토큰값
     }
@@ -113,7 +114,8 @@ POST
        user: {
             id: 유저의 uuid값,
             username: 유저의 유저명,
-            password: 유저의 비밀번호
+            password: 유저의 비밀번호,
+            thumbnail: 썸네일
        },
         token: jwt 토큰값
     }
