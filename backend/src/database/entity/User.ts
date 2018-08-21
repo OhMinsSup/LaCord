@@ -14,6 +14,7 @@ class User {
 
     @Column({
         type: 'varchar',
+        nullable: true
     })
     public thumbnail: string;
 
