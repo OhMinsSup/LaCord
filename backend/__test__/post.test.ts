@@ -1,8 +1,10 @@
+/*
 import { createConnection, Connection } from 'typeorm';
 import * as request from  'supertest';
 import server from '../src/server';
 import { DATABASE_HOST, DATABASE_PORT, DATABASE_USERNAME, DATABASE_PASSWORD, DATA_BASE } from '../src/config/config';
 import Post from '../src/database/entity/Post';
+import User from '../src/database/entity/User';
 
 const title = 'title';
 const body = 'body';
@@ -20,7 +22,8 @@ describe( 'Post API', () => {
             password: DATABASE_PASSWORD,
             database: DATA_BASE,
             entities: [
-                Post
+                Post,
+                User
             ],
             synchronize: true
         });
@@ -34,3 +37,4 @@ describe( 'Post API', () => {
         console.log('test');
     })
 })
+*/

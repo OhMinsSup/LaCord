@@ -9,7 +9,8 @@ import cors from './lib/middlewares/cors';
 
 const app = new Koa();
 const staticPath = path.join(__dirname, '../.webpack/bundle.js');
-//  inti database
+
+//  init database
 connect();
 
 app.use(cors);

@@ -50,9 +50,6 @@
                 .desktop-only {
                   display: flex;
                   transition: width .3s ease-in-out;
-                  @include media("<medium") {
-                    display: none;
-                  }
                   .flex-box {
                       display: flex;
                     &.row {

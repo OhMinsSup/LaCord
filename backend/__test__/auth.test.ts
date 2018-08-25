@@ -20,7 +20,7 @@ describe('Auth API', () => {
             password: DATABASE_PASSWORD,
             database: DATA_BASE,
             entities: [
-                User
+                User,
             ],
             synchronize: true
         });

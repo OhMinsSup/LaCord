@@ -1,4 +1,4 @@
-# API
+# AUTH API
 
 ## 1. 회원가입 API
 
