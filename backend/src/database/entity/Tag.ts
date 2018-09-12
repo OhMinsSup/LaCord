@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, Index } from 'typeorm';
 import Post from './Post';
 
 @Entity('tag')
@@ -8,14 +8,18 @@ class Tag {
 
     @Column({
         type: 'varchar',
+        nullable: true,
     })
-    public name: string;
+    public name: string | null;
 
-    @ManyToMany(type => Post)
-    @JoinTable({
-        name: 'post_tag'
+    @ManyToMany(type => Post, post => post.tags, {
+        onDelete: 'CASCADE',
+        onUpdate: 'RESTRICT'
     })
-    public posts: Post[];
+    @JoinTable({
+        name: 'post_tags'
+    })
+    public posts: Post | Post[];
 }
 
 export default Tag;

@@ -6,13 +6,17 @@ export const serializePost = (data: any) => {
         title,
         body,
         post_thumbnail,
+        created_at,
         user
     } = data;
+    const tags = data.tags.map(tag => tag.name);
     return {
         id,
+        post_thumbnail,
         title,
         body,
-        post_thumbnail,
+        created_at,
+        tags,
         user: {
             ...pick(user, ['id', 'username', 'email', 'thumbnail']),
         }

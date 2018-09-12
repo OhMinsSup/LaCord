@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column, ManyToMany, Index } from 'typeorm';
 import User from './User';
+import Tag from './Tag';
 
 @Entity('post')
 class Post {
@@ -10,7 +11,7 @@ class Post {
         type: 'varchar',
         nullable: true
     })
-    public post_thumbnail: string;
+    public post_thumbnail: string | null;
 
     @Column({
         type: 'varchar',
@@ -23,16 +24,19 @@ class Post {
     public body: string;
 
     @Column({
-        type: 'uuid',
-        nullable: true
+        type: 'int',
+        default: 0
     })
-    public userId: string;
-
-    @OneToOne(type => User, {
-        cascade: true
+    public likes: number;
+  
+    @OneToOne(type => User, user => user.id, {
+        onDelete: 'CASCADE'
     })
-    @JoinColumn({ name: 'userId' })
+    @JoinColumn()
     public user: User;
+
+    @ManyToMany(type => Tag, tag => tag.posts)
+    public tags: Tag | Tag[];
 }
 
 export default Post;

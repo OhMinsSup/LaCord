@@ -16,7 +16,7 @@ class User {
         type: 'varchar',
         nullable: true
     })
-    public thumbnail: string;
+    public thumbnail: string | null;
 
     @Column({
         type: "varchar",
@@ -30,10 +30,10 @@ class User {
     public password: string;
 
     @CreateDateColumn()
-    public created_at: number;
+    public created_at: string;
 
     @CreateDateColumn()
-    public updated_at: number;
+    public updated_at: string;
 
     public validatePassword(password: string) {
         const hashed: string = hash(password);

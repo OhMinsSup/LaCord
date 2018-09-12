@@ -54,6 +54,7 @@
     "transform": {
       "^.+\\.(tsx|ts)?$": "ts-jest"
     },
+    "testEnvironment": "node",
     "testRegex": "(/__test__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?|ts?|js?)$",
     "moduleFileExtensions": [
       "ts",
