@@ -16,7 +16,7 @@ const connect = async () => {
         password: DATABASE_PASSWORD,
         database: DATA_BASE,
         entities: [
-            __dirname + "/entity/*.js"
+            __dirname + "/entity/*"
         ],
         // dropSchema 및 synchronize는 개발용에서만
         dropSchema: true,

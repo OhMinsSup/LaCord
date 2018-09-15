@@ -1,11 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index, OneToMany } from 'typeorm';
 import { hash } from '../../lib/common';
+import Post from './Post';
 
 @Entity('user')
 class User {
     @PrimaryGeneratedColumn('uuid')
     public id: string;
 
+    @Index()
     @Column({
         type: "varchar",
         unique: true,
@@ -18,6 +20,7 @@ class User {
     })
     public thumbnail: string | null;
 
+    @Index()
     @Column({
         type: "varchar",
         unique: true
@@ -34,6 +37,9 @@ class User {
 
     @CreateDateColumn()
     public updated_at: string;
+
+    @OneToMany(type => Post, post => post.user)
+    public posts: Post[];
 
     public validatePassword(password: string) {
         const hashed: string = hash(password);

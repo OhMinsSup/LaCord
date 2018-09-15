@@ -45,9 +45,9 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
     
     try {
         // 존재하는 태그면 태그를 찾아서 반환하고 만약 태그가 없으면 태그를 만들어서 반환
-        const tags = await Promise.all(uniqueTags.map(tag => tagCustomRespository.getById(tag)));
+        const tags = await Promise.all(uniqueTags.map(tag => tagCustomRespository.getById(tag)));        
         const post = await postCustomRespository.writePost(title, body, post_thumbnail, user, tags);
-                
+        
         const postData = await postCustomRespository.readPostById(post.id);    
         // 필요한 데이터만 가져온다.    
         ctx.body = serializePost(postData);

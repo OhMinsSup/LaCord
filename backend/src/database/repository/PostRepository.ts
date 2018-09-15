@@ -6,6 +6,7 @@ import User from '../entity/User';
 
 @EntityRepository(Post)
 class PostRepository extends Repository<Post> {
+    
     public writePost(title: string, body: string, post_thumbnail: string, user: User, tags: Tag[]) {
         const post = new Post();
         post.title = title;
@@ -18,8 +19,8 @@ class PostRepository extends Repository<Post> {
 
     public readPostById(id: string) {
         return this.createQueryBuilder("post")
-        .leftJoinAndSelect("post.tags", "tag")
         .leftJoinAndSelect("post.user", "user")
+        .leftJoinAndSelect("post.tags", "tag")
         .where("post.id=:value")
         .setParameter("value", id)
         .getOne();

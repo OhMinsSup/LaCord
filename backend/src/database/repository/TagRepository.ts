@@ -7,7 +7,7 @@ class TagRepository extends Repository<Tag> {
     public async getById(name: string) {        
         try {
             let tag = await this.findOne({
-                where :{
+                where: {
                     name
                 }
             });

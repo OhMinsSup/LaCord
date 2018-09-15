@@ -19,7 +19,7 @@ class Tag {
     @JoinTable({
         name: 'post_tags'
     })
-    public posts: Post | Post[];
+    public posts: Post[];
 }
 
 export default Tag;

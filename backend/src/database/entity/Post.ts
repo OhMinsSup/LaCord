@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn, Column, ManyToMany, Index } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, JoinColumn, Column, ManyToMany, PrimaryColumn, ManyToOne } from 'typeorm';
 import User from './User';
 import Tag from './Tag';
 
@@ -29,14 +29,18 @@ class Post {
     })
     public likes: number;
   
-    @OneToOne(type => User, user => user.id, {
-        onDelete: 'CASCADE'
+    @ManyToOne(type => User, user => user.posts, {
+        onDelete: 'CASCADE',
+        onUpdate: 'RESTRICT',
     })
     @JoinColumn()
     public user: User;
 
-    @ManyToMany(type => Tag, tag => tag.posts)
-    public tags: Tag | Tag[];
+    @ManyToMany(type => Tag, tag => tag.posts, {
+        onDelete: 'CASCADE',
+        onUpdate: 'RESTRICT',
+    })
+    public tags: Tag[] | null;
 }
 
 export default Post;
