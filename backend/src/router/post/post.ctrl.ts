@@ -34,11 +34,14 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
         return;
     }
 
+    // 각각 모델의 저장소를 만든다
     const postCustomRespository = await getCustomRepository(PostRepository);
     const tagCustomRespository = await getCustomRepository(TagRepository);
     
     const { title, body, post_thumbnail, tags }: BodySchema = ctx.request.body;
     const user = ctx['user'];
+    
+    // 중복태그 제거
     const uniqueTags: string[] = filterUnique(tags);
     
     ctx.body = uniqueTags;

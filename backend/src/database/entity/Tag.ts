@@ -12,14 +12,14 @@ class Tag {
     })
     public name: string | null;
 
-    @ManyToMany(type => Post, post => post.tags, {
+    @ManyToMany(type => Post, post => post.post_tags, {
         onDelete: 'CASCADE',
         onUpdate: 'RESTRICT'
     })
     @JoinTable({
         name: 'post_tags'
     })
-    public posts: Post[];
+    public posts: Post[] | null;
 }
 
 export default Tag;

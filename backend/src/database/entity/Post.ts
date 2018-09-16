@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, JoinColumn, Column, ManyToMany, PrimaryColumn, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, JoinColumn, Column, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 import User from './User';
 import Tag from './Tag';
+import Like from './Like';
 
 @Entity('post')
 class Post {
@@ -40,7 +41,14 @@ class Post {
         onDelete: 'CASCADE',
         onUpdate: 'RESTRICT',
     })
-    public tags: Tag[] | null;
+    public post_tags: Tag[] | null;
+
+
+    @OneToMany(type => Like, like => like.post, {
+        onDelete: 'CASCADE',
+        onUpdate: 'RESTRICT',
+    })
+    public post_likes: Like[] | null;
 }
 
 export default Post;

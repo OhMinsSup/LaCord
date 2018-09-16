@@ -9,7 +9,7 @@ export const serializePost = (data: any) => {
         created_at,
         user
     } = data;
-    const tags = data.tags.map(tag => tag.name);
+    const tags = data.post_tags.map(tag => tag.name);
     return {
         id,
         post_thumbnail,

@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, Index, OneToMany } from 'typeorm';
 import { hash } from '../../lib/common';
 import Post from './Post';
+import Like from './Like';
 
 @Entity('user')
 class User {
@@ -40,6 +41,9 @@ class User {
 
     @OneToMany(type => Post, post => post.user)
     public posts: Post[];
+
+    @OneToMany(type => Like, like => like.user)
+    public user_likes: Like[] | null;
 
     public validatePassword(password: string) {
         const hashed: string = hash(password);
