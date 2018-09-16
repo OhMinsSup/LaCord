@@ -9,7 +9,10 @@ router.use('/post', post.routes());
 
 // test api
 router.get('/', (ctx) => {
-    ctx.body = 'test';
+    ctx.set('content-type', 'application/json');
+    ctx.body = {
+        payload: 'test',
+    };
 });
 
 export default router;

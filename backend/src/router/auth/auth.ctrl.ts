@@ -37,7 +37,7 @@ export const localRegister: Middleware = async (ctx: Context): Promise<any> => {
         const [emailExists, usernameExists] = await Promise.all([
             userCustomRespository.findUser('email', email),
             userCustomRespository.findUser('username', username)
-        ])
+        ])        
 
         if (emailExists || usernameExists) {
             ctx.status = 409;
