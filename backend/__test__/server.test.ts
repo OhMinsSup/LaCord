@@ -1,13 +1,18 @@
 import * as request from 'supertest';
 import server from '../src/server';
+import 'reflect-metadata';
 import { Connection, createConnection } from 'typeorm';
 import { DATABASE_HOST, DATABASE_PORT, DATABASE_USERNAME, DATABASE_PASSWORD, DATA_BASE } from '../src/config/config';
+import User from '../src/database/entity/User';
+import Post from '../src/database/entity/Post';
+import Tag from '../src/database/entity/Tag';
+import Like from '../src/database/entity/Like';
 
-describe('LaCord Server is live', () => {
+describe('LaCord Testing', () => {
     let connection: Connection;
 
     beforeEach(async () => {
-        connection = await createConnection({
+        return createConnection({
             type: "postgres",
             host: DATABASE_HOST,
             port: DATABASE_PORT,
@@ -15,12 +20,18 @@ describe('LaCord Server is live', () => {
             password: DATABASE_PASSWORD,
             database: DATA_BASE,
             entities: [
-                __dirname + "/entity/*"
+                User,
+                Post,
+                Tag,
+                Like
             ],
-            // dropSchema 및 synchronize는 개발용에서만
-            dropSchema: true,
-            synchronize: true
-        });
+        })
+        .then((c) => {
+            connection = c;
+        })
+        .catch(e => {
+            console.error(e);
+        })
     });
 
     afterEach(async () => {
@@ -29,10 +40,10 @@ describe('LaCord Server is live', () => {
 
     test('server respones', async () => {
         const response = await request(server.callback()).get('/');
-        expect(response.status).toEqual(200);        
-        expect(response.type).toEqual("application/json");
+        expect(response.status).toBe(200);        
         expect(response.body).toEqual({
-            "payload": "test"
+            payload: 'Hello jest'
         });
-    });
+        expect(response.body).toMatchSnapshot();
+    });    
 });

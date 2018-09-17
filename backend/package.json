@@ -54,7 +54,15 @@
     "transform": {
       "^.+\\.(tsx|ts)?$": "ts-jest"
     },
+    "collectCoverage": true,
     "testEnvironment": "node",
+    "collectCoverageFrom": [
+      "**/*.{ts,js}",
+      "!**/node_modules/**",
+      "!**/build/**",
+      "!**/coverage/**",
+      "!**/dist/**"
+    ],
     "testRegex": "(/__test__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?|ts?|js?)$",
     "moduleFileExtensions": [
       "ts",
@@ -63,6 +71,28 @@
       "jsx",
       "json",
       "node"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
+    "coverageReporters": [
+      "text",
+      "text-summary"
+    ],
+    "testPathIgnorePatterns": [
+      "/dist/",
+      "/DOC/",
+      "/node_modules/",
+      "/build/",
+      "/.prettierrc.js",
+      "/package-lock.json",
+      "/package.json",
+      "/webpack.config.js"
     ]
   }
 }

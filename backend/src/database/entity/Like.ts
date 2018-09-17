@@ -14,7 +14,10 @@ class Like {
     public post: Post | null;
 
 
-    @ManyToOne(type => User, user => user.user_likes)
+    @ManyToOne(type => User, user => user.user_likes, {
+        onDelete: 'CASCADE',
+        onUpdate: 'RESTRICT',
+    })
     public user: User | null;
 
 

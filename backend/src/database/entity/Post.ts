@@ -35,7 +35,7 @@ class Post {
         onUpdate: 'RESTRICT',
     })
     @JoinColumn()
-    public user: User;
+    public user: User | null;
 
     @ManyToMany(type => Tag, tag => tag.posts, {
         onDelete: 'CASCADE',

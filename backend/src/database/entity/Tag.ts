@@ -8,9 +8,8 @@ class Tag {
 
     @Column({
         type: 'varchar',
-        nullable: true,
     })
-    public name: string | null;
+    public name: string;
 
     @ManyToMany(type => Post, post => post.post_tags, {
         onDelete: 'CASCADE',

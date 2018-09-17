@@ -40,7 +40,7 @@ class User {
     public updated_at: string;
 
     @OneToMany(type => Post, post => post.user)
-    public posts: Post[];
+    public posts: Post[] | null;
 
     @OneToMany(type => Like, like => like.user)
     public user_likes: Like[] | null;

@@ -11,7 +11,7 @@ router.use('/post', post.routes());
 router.get('/', (ctx) => {
     ctx.set('content-type', 'application/json');
     ctx.body = {
-        payload: 'test',
+        payload: 'Hello jest'
     };
 });
 
