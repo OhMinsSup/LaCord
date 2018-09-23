@@ -40,10 +40,10 @@ class User {
     public updated_at: string;
 
     @OneToMany(type => Post, post => post.user)
-    public posts: Post[] | null;
+    public posts: Post[];
 
     @OneToMany(type => Like, like => like.user)
-    public user_likes: Like[] | null;
+    public user_likes: Like[];
 
     public validatePassword(password: string) {
         const hashed: string = hash(password);

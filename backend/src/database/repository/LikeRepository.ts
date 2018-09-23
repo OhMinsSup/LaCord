@@ -1,5 +1,7 @@
 import { EntityRepository, Repository } from 'typeorm';
 import Like from '../entity/Like';
+import Post from '../entity/Post';
+import User from '../entity/User';
 
 @EntityRepository(Like)
 class LikeRepository extends Repository<Like> {
@@ -9,7 +11,14 @@ class LikeRepository extends Repository<Like> {
                 postId,
                 userId
             }
-        })
+        });
+    }
+
+    public like(post: Post, user: User) {
+        const like = new Like();
+        like.post = post;
+        like.user = user;
+        return this.manager.save(like);
     }
 }
 

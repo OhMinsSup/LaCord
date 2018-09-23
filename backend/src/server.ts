@@ -1,19 +1,41 @@
 import * as Koa from 'koa';
 import * as koaBody from 'koa-body';
 import routes from './router';
-import { connect } from'./database/db';
+import database from'./database/db';
 import tokenMiddleware from './lib/middlewares/tokenMiddleware';
 import cors from './lib/middlewares/cors';
 
-const app = new Koa();
-//  init database
-connect();
+class Server {
+    public app: Koa;
 
-app.use(cors);
-app.use(tokenMiddleware);
-app.use(koaBody({
-    multipart: true
-}));
-app.use(routes.routes()).use(routes.allowedMethods());
+    constructor() {
+        this.app = new Koa();
+        this.initializeDb();
+        this.middleware();
+        this.routes();
+    }
+    private initializeDb(): void {
+        if (!database.connected) {
+            database.connect();
+        } else {
+            console.log('database connection...');
+        }
+    }
 
-export default app;
+    private middleware(): void {
+        const { app } = this;
+
+        app.use(cors);
+        app.use(tokenMiddleware);
+        app.use(koaBody({
+            multipart: true
+        }));
+    }
+
+    private routes(): void {
+        const { app } = this;
+        app.use(routes.routes()).use(routes.allowedMethods());
+    }
+}
+
+export default new Server().app;

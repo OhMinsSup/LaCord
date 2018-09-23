@@ -35,20 +35,28 @@ class Post {
         onUpdate: 'RESTRICT',
     })
     @JoinColumn()
-    public user: User | null;
+    public user: User;
 
     @ManyToMany(type => Tag, tag => tag.posts, {
         onDelete: 'CASCADE',
         onUpdate: 'RESTRICT',
     })
-    public post_tags: Tag[] | null;
+    public post_tags: Tag[];
 
 
     @OneToMany(type => Like, like => like.post, {
         onDelete: 'CASCADE',
         onUpdate: 'RESTRICT',
     })
-    public post_likes: Like[] | null;
+    public post_likes: Like[];
+
+    public count() {
+        this.likes++;
+    }
+
+    public uncount() {
+        this.likes--;
+    }
 }
 
 export default Post;

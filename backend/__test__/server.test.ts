@@ -1,5 +1,5 @@
 import * as request from 'supertest';
-import server from '../src/server';
+import server from '../src/index';
 import 'reflect-metadata';
 import { Connection, createConnection } from 'typeorm';
 import { DATABASE_HOST, DATABASE_PORT, DATABASE_USERNAME, DATABASE_PASSWORD, DATA_BASE } from '../src/config/config';
@@ -25,21 +25,20 @@ describe('LaCord Testing', () => {
                 Tag,
                 Like
             ],
-        })
-        .then((c) => {
+        }).then((c) => {
             connection = c;
-        })
-        .catch(e => {
+        }).catch(e => {
             console.error(e);
-        })
+        });
     });
 
     afterEach(async () => {
         await connection.close();
+        await server.close();
     });
 
     test('server respones', async () => {
-        const response = await request(server.callback()).get('/');
+        const response = await request(server).get('/');
         expect(response.status).toBe(200);        
         expect(response.body).toEqual({
             payload: 'Hello jest'

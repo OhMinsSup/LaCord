@@ -6,7 +6,8 @@ import like from './like';
 const post = new Router();
 
 post.post('/', needAuth, postCtrl.writePost);
+post.patch('/', needAuth, postCtrl.updatePost);
 
-post.use('/like', like.routes());
+post.use('/:id/like', needAuth, like.routes());
 
 export default post;
