@@ -1,5 +1,6 @@
 import * as Koa from 'koa';
 import * as koaBody from 'koa-body';
+import * as compress from 'koa-compress';
 import routes from './router';
 import database from'./database/db';
 import tokenMiddleware from './lib/middlewares/tokenMiddleware';
@@ -14,6 +15,7 @@ class Server {
         this.middleware();
         this.routes();
     }
+    
     private initializeDb(): void {
         if (!database.connected) {
             database.connect();
@@ -29,6 +31,13 @@ class Server {
         app.use(tokenMiddleware);
         app.use(koaBody({
             multipart: true
+        }));
+        app.use(compress({
+            filter: (contentType) => {
+                return /text/i.test(contentType)
+            },
+            threshold: 2048,
+            flush: require('zlib').Z_SYNC_FLUSH
         }));
     }
 

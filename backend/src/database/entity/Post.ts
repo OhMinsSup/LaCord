@@ -51,11 +51,7 @@ class Post {
     public post_likes: Like[];
 
     public count() {
-        this.likes++;
-    }
-
-    public uncount() {
-        this.likes--;
+        return this.likes
     }
 }
 

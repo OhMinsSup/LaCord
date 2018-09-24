@@ -6,5 +6,6 @@ const like: Router = new Router();
 
 like.post('/', needAuth, likeCtrl.likePost);
 like.delete('/', needAuth, likeCtrl.unlikePost);
+like.get('/', needAuth, likeCtrl.getLike);
 
 export default like;

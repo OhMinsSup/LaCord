@@ -6,12 +6,12 @@ import User from '../entity/User';
 @EntityRepository(Like)
 class LikeRepository extends Repository<Like> {
     public checkExists(userId: string, postId: string) {
-        return this.findOne({
-            where: {
-                postId,
-                userId
-            }
-        });
+        return this.createQueryBuilder()
+        .select("like")
+        .from(Like, "like")
+        .where("like.user=:user", { user: userId })
+        .andWhere("like.post=:post", { post: postId })
+        .getOne();
     }
 
     public like(post: Post, user: User) {
@@ -19,6 +19,15 @@ class LikeRepository extends Repository<Like> {
         like.post = post;
         like.user = user;
         return this.manager.save(like);
+    }
+
+    public unlike(post: string, user: string) {
+        return this.createQueryBuilder()
+        .delete()
+        .from(Like)
+        .where("user =:user", { user })
+        .andWhere("post =:post", { post })
+        .execute();
     }
 }
 

@@ -7,7 +7,7 @@ import { serializePost } from '../../lib/serialized';
 import { filterUnique } from '../../lib/common';
 
 
-/**@return {void}
+/**@return {Promise<any>}
  * @description 포스트를 작성하기 위한 api
  * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
  */

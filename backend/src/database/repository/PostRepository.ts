@@ -24,7 +24,6 @@ class PostRepository extends Repository<Post> {
         .setParameter("value", id)
         .getOne();
     }
-
 }
 
 export default PostRepository;
