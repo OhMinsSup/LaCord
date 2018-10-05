@@ -14,6 +14,14 @@ class LikeRepository extends Repository<Like> {
         .getOne();
     }
 
+    public deleteLike(postId: string) {
+        return this.createQueryBuilder()
+        .delete()
+        .from(Like)
+        .where("post=:post", { post: postId })
+        .execute();
+    }
+
     public like(post: Post, user: User) {
         const like = new Like();
         like.post = post;

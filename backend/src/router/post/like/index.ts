@@ -1,11 +1,10 @@
 import * as Router from 'koa-router';
 import * as likeCtrl from './like.ctrl';
-import needAuth from '../../../lib/middlewares/needAuth';
 
 const like: Router = new Router();
 
-like.post('/', needAuth, likeCtrl.likePost);
-like.delete('/', needAuth, likeCtrl.unlikePost);
-like.get('/', needAuth, likeCtrl.getLike);
+like.post('/', likeCtrl.likePost);
+like.delete('/', likeCtrl.unlikePost);
+like.get('/', likeCtrl.getLike);
 
 export default like;

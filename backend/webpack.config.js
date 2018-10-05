@@ -8,12 +8,13 @@ module.exports = {
     // mode: "none" mode: "development"
     target: 'node',
     resolve: {
+        modules: [path.resolve('./src'), 'node_modules/'],
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     },
     output: {
         filename:'bundle.js',
         libraryTarget: 'commonjs',
-        path: path.join(__dirname, '.webpack'),
+        path: path.join(__dirname, 'build'),
     },
     module: {
         rules: [

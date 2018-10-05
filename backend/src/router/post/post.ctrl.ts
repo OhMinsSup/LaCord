@@ -1,8 +1,8 @@
 import { Context, Middleware } from 'koa';
-import * as Joi from 'joi';
 import { getCustomRepository } from 'typeorm';
+import * as Joi from 'joi';
 import PostRepository from '../../database/repository/PostRepository';
-import TagRepository from '../../database/repository/TagRepository';
+import LikeRepository from '../../database/repository/LikeRepository';
 import { serializePost } from '../../lib/serialized';
 import { filterUnique } from '../../lib/common';
 
@@ -36,7 +36,6 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
 
     // 각각 모델의 저장소를 만든다
     const postCustomRespository = await getCustomRepository(PostRepository);
-    const tagCustomRespository = await getCustomRepository(TagRepository);
     
     const { title, body, post_thumbnail, tags }: BodySchema = ctx.request.body;
     const user = ctx['user'];
@@ -47,9 +46,7 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
     ctx.body = uniqueTags;
     
     try {
-        // 존재하는 태그면 태그를 찾아서 반환하고 만약 태그가 없으면 태그를 만들어서 반환
-        const tags = await Promise.all(uniqueTags.map(tag => tagCustomRespository.getById(tag)));        
-        const post = await postCustomRespository.writePost(title, body, post_thumbnail, user, tags);
+        const post = await postCustomRespository.writePost(title, body, post_thumbnail, user, uniqueTags);
         const postData = await postCustomRespository.readPostById(post.id);    
         // 필요한 데이터만 가져온다.    
         ctx.body = serializePost(postData);
@@ -58,6 +55,65 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
     }
 };
 
+/**@return {Promise<any>}
+ * @description 포스트를 업데이트하기 위한 api
+ * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ */
 export const updatePost = async (ctx: Context): Promise<any> => {
-    ctx.body = 'dssd';
+    type BodySchema = {
+        title: string,
+        body: string,
+        post_thumbnail?: string,
+        tags?: string[]
+    }
+
+    const schema = Joi.object().keys({
+        title: Joi.string().required().min(1).max(120),
+        body: Joi.string().required().min(1),
+        post_thumbnail: Joi.string().uri().allow(null),
+        tags: Joi.array().items(Joi.string()),
+    });
+
+    const result = Joi.validate(ctx.request.body, schema);
+    
+    if (result.error) {
+        ctx.status = 404;
+        ctx.body = result.error;
+        return;
+    }
+
+    const postCustomRespository = await getCustomRepository(PostRepository);
+
+    const { title, body, post_thumbnail, tags }: BodySchema = ctx.request.body;
+    const uniqueTags: string[] = filterUnique(tags);
+    const postId: string = ctx['post'].id;
+
+    try {
+        await postCustomRespository.updatePost(title, body, post_thumbnail, uniqueTags, postId);
+        const post = await postCustomRespository.readPostById(postId);
+        ctx.body = serializePost(post);
+    } catch (e) {
+        ctx.throw(500, e);
+    }
 } 
+
+/**@return {Promise<any>}
+ * @description 포스트를 삭제하기 위한 api
+ * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ */
+export const deletePost = async(ctx: Context): Promise<any> => {
+    const postId: string = ctx['post'].id;
+
+    const postCustomRespository = await getCustomRepository(PostRepository);
+    const likeCustomRespository = await getCustomRepository(LikeRepository);
+
+    try {
+        await Promise.all([
+            likeCustomRespository.deleteLike(postId),
+        ]);
+        await postCustomRespository.deletePost(postId);
+        ctx.status = 204;
+    } catch (e) {
+        ctx.throw(500, e);
+    }
+}

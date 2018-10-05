@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, JoinColumn, Column, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, JoinColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import User from './User';
-import Tag from './Tag';
 import Like from './Like';
+import { isArray } from 'util';
 
 @Entity('post')
 class Post {
@@ -29,6 +29,9 @@ class Post {
         default: 0
     })
     public likes: number;
+
+    @Column("varchar", { array: true })
+    public tags: string[];
   
     @ManyToOne(type => User, user => user.posts, {
         onDelete: 'CASCADE',
@@ -36,13 +39,6 @@ class Post {
     })
     @JoinColumn()
     public user: User;
-
-    @ManyToMany(type => Tag, tag => tag.posts, {
-        onDelete: 'CASCADE',
-        onUpdate: 'RESTRICT',
-    })
-    public post_tags: Tag[];
-
 
     @OneToMany(type => Like, like => like.post, {
         onDelete: 'CASCADE',

@@ -1,5 +1,10 @@
 import { pick } from 'lodash';
 
+/**
+ * @description 포스트 데이터에서 필요한 데이터만 필터링
+ * @param {any} Data(포스트의 속성과 유저, 태그 속성을 가져온다)
+ * @returns {Object<any>} id, post_thumbnail, title, body, created_at, tags, user: { id, username, email, thumbnail } 
+ */
 export const serializePost = (data: any) => {
     const {
         id,
@@ -7,9 +12,9 @@ export const serializePost = (data: any) => {
         body,
         post_thumbnail,
         created_at,
-        user
+        user,
+        tags
     } = data;
-    const tags = data.post_tags.map(tag => tag.name);
     return {
         id,
         post_thumbnail,

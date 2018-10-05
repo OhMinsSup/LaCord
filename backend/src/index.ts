@@ -1,7 +1,9 @@
+import * as http from 'http';
 import * as config from './config/config';
-import server from './server';
+import Server from './server';
 
 const port = normalizePort(config.PORT || 5000);
+const server = http.createServer(Server.callback());
 server.listen(port, () => {
     console.log(`LaCord HTTP Server running on port ${port} ✅`);
 });
@@ -35,3 +37,5 @@ function onError(error: NodeJS.ErrnoException): void {
         throw error;
     }
 }
+
+export default server;
