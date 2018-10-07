@@ -54,8 +54,12 @@
     "typeorm": "^0.2.7"
   },
   "jest": {
+    "verbose": true,
     "transform": {
       "^.+\\.(tsx|ts)?$": "ts-jest"
+    },
+    "globals": {
+      "__TS_CONFIG__": {}  
     },
     "collectCoverage": true,
     "testEnvironment": "node",

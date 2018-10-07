@@ -3,18 +3,18 @@ import  * as pg from 'pg';
 import "reflect-metadata";
 import { DATABASE_HOST, DATABASE_PORT, DATABASE_USERNAME, DATABASE_PASSWORD, DATA_BASE } from '../config/config';
 
-(pg as any).defaults.parseInt8 = true; // fixes issue: umbers returning as string.
+(pg as any).defaults.parseInt8 = true;
 
 class Database {
     public connection: Connection | null = null;
 
     public get connected () {
-        if (!this.connection) return false;
+        if (!this.connection || this.connection === null) return false;
         return this.connection
     }
 
-    public connect() {
-        const db = createConnection({
+    public async connect() {
+        const db = await createConnection({
             type: "postgres",
             host: DATABASE_HOST,
             port: DATABASE_PORT,
@@ -28,15 +28,8 @@ class Database {
             dropSchema: true,
             synchronize: true
         })
-        .then(c => {
-            this.connection = c;
-            console.log('LaCord Database Conntection ✅')
-        })
-        .catch(e => {
-            this.connection = null;
-            console.error('database connected error:' + e);
-        });
 
+        this.connection = db;
         return db;
     }
 }

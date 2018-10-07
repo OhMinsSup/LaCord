@@ -1,7 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, JoinColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import User from './User';
 import Like from './Like';
-import { isArray } from 'util';
 
 @Entity('post')
 class Post {

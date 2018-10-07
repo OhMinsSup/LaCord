@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth Routes POST: /auth/register/local 404 Validate Error 1`] = `
+Object {
+  "_object": Object {
+    "email": "test@naver.com",
+    "password": "123123",
+    "username": 123123,
+  },
+  "details": Array [
+    Object {
+      "context": Object {
+        "key": "username",
+        "label": "username",
+        "value": 123123,
+      },
+      "message": "\\"username\\" must be a string",
+      "path": Array [
+        "username",
+      ],
+      "type": "string.base",
+    },
+  ],
+  "isJoi": true,
+  "name": "ValidationError",
+}
+`;

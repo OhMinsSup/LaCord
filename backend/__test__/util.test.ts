@@ -1,13 +1,13 @@
-import * as request from 'supertest';
 import server from '../src/index';
-import 'reflect-metadata';
 import { Connection, createConnection } from 'typeorm';
 import { DATABASE_HOST, DATABASE_PORT, DATABASE_USERNAME, DATABASE_PASSWORD, DATA_BASE } from '../src/config/config';
 import User from '../src/database/entity/User';
 import Post from '../src/database/entity/Post';
 import Like from '../src/database/entity/Like';
+import 'reflect-metadata';
 
-describe('LaCord Testing', () => {
+describe('Util', () => {
+    jest.useFakeTimers();
     let connection: Connection;
 
     beforeEach(async () => {
@@ -34,13 +34,4 @@ describe('LaCord Testing', () => {
         await connection.close();
         await server.close();
     });
-
-    describe('server respones', async () => {
-        const response = await request(server).get('/');
-        expect(response.status).toBe(200);        
-        expect(response.body).toEqual({
-            payload: 'Hello jest'
-        });
-        expect(response.body).toMatchSnapshot();
-    });    
 });

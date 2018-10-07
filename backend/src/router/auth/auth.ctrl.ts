@@ -1,6 +1,5 @@
 import { Context, Middleware } from 'koa';
 import { getCustomRepository } from 'typeorm';
-import User from '../../database/entity/User';
 import * as Joi from 'joi';
 import UserRepository from '../../database/repository/UserRepository';
 
@@ -68,7 +67,6 @@ export const localRegister: Middleware = async (ctx: Context): Promise<any> => {
                 email: user.email,
                 thumbnail: user.thumbnail
             },
-            token
         };
     } catch (e) {
         ctx.throw(500, e);
@@ -123,7 +121,6 @@ export const localLogin: Middleware = async (ctx: Context): Promise<any> => {
                 email: user.email,
                 thumbnail: user.thumbnail
             },
-            token
         };
     } catch (e) {
         ctx.throw(500, e);

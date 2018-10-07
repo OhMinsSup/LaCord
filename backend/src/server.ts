@@ -19,9 +19,8 @@ class Server {
     private initializeDb(): void {
         if (!database.connected) {
             database.connect();
-        } else {
-            console.log('database connection...');
-        }
+            console.log('LaCord Database Conntection ✅')
+        } 
     }
 
     private middleware(): void {
