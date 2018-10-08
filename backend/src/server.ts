@@ -1,7 +1,7 @@
 import * as Koa from 'koa';
 import * as koaBody from 'koa-body';
 import * as compress from 'koa-compress';
-import routes from './router';
+import routes from './routes';
 import database from'./database/db';
 import tokenMiddleware from './lib/middlewares/tokenMiddleware';
 import cors from './lib/middlewares/cors';

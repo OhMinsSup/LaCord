@@ -29,6 +29,12 @@ class Post {
     })
     public likes: number;
 
+    @Column({
+        type: 'int',
+        default: 0
+    })
+    public comments: number;
+
     @Column("varchar", { array: true })
     public tags: string[];
   

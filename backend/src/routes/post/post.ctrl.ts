@@ -3,13 +3,14 @@ import { getCustomRepository } from 'typeorm';
 import * as Joi from 'joi';
 import PostRepository from '../../database/repository/PostRepository';
 import LikeRepository from '../../database/repository/LikeRepository';
+import UserRepository from '../../database/repository/UserRepository';
 import { serializePost } from '../../lib/serialized';
 import { filterUnique } from '../../lib/common';
 
 
 /**@return {Promise<any>}
  * @description 포스트를 작성하기 위한 api
- * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ * @param {Context} ctx koa Context
  */
 export const writePost: Middleware = async (ctx: Context): Promise<any> => {
     type BodySchema = {
@@ -57,7 +58,7 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
 
 /**@return {Promise<any>}
  * @description 포스트를 업데이트하기 위한 api
- * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ * @param {Context} ctx koa Context
  */
 export const updatePost = async (ctx: Context): Promise<any> => {
     type BodySchema = {
@@ -99,7 +100,7 @@ export const updatePost = async (ctx: Context): Promise<any> => {
 
 /**@return {Promise<any>}
  * @description 포스트를 삭제하기 위한 api
- * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ * @param {Context} ctx koa Context
  */
 export const deletePost = async(ctx: Context): Promise<any> => {
     const postId: string = ctx['post'].id;
@@ -113,6 +114,49 @@ export const deletePost = async(ctx: Context): Promise<any> => {
         ]);
         await postCustomRespository.deletePost(postId);
         ctx.status = 204;
+    } catch (e) {
+        ctx.throw(500, e);
+    }
+}
+
+/**@return {Promise<any>}
+ * @description 포스트를 읽기 위한 api
+ * @param {Context} ctx koa Context
+ */
+export const readPost = async (ctx: Context): Promise<any> => {
+    const { username, id } = ctx.params;
+
+    const postCustomRespository = await getCustomRepository(PostRepository);
+    const userCustomRespository = await getCustomRepository(UserRepository);
+    const likeCustomRespository = await getCustomRepository(LikeRepository);
+
+    try {
+        let post = await postCustomRespository.readPost(username, id);
+
+        if (!post) {
+            const user = await userCustomRespository.findUser('username', username);
+            if (!user) {
+                ctx.status = 404;
+                return;
+            }
+        }
+
+        post = await postCustomRespository.readPostById(post.id);
+
+        if (!post) {
+            ctx.status = 404;
+            return;
+        }
+
+        let liked = false;
+        if (ctx['user']) {
+            const exists = await likeCustomRespository.checkExists(ctx['user'].id, post.id);
+            liked = !!exists;
+        }
+        ctx.body = serializePost({
+            ...post,
+            liked
+        });
     } catch (e) {
         ctx.throw(500, e);
     }
