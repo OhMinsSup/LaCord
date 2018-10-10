@@ -38,10 +38,8 @@ class PostRepository extends Repository<Post> {
     public readPost (username: string, id: string) {
         return this.createQueryBuilder("post")
         .leftJoinAndSelect("post.user", "user")
-        .where("post.id=:id")
-        .setParameter("id", id)
-        .where("post.user.username=:username")
-        .setParameter("username", username)
+        .where("post.id=:id", { id })
+        .andWhere("user.username=:username", { username })
         .getOne();
     }
 
@@ -51,6 +49,59 @@ class PostRepository extends Repository<Post> {
         .where("post.id=:value")
         .setParameter("value", id)
         .getOne();
+    }
+
+    public async listPost (username?: string, cursor?: string) {
+        let cursorData = null;
+
+        if (cursor) {
+            cursorData = await this.findOne({
+                where: {
+                    id: cursor
+                }
+            })
+
+            if (!cursorData) {
+                const e = new Error('Cusor data is not found');
+                e.name = 'CURSOR_NOT_FOUND';
+                throw e;
+            }
+        }
+
+        const cursorDate = cursorData && cursorData.created_at;
+        const time = cursorDate && new Date(cursorDate).toISOString();
+        let rows: Post[] | null = null;
+        
+        try {
+
+            if (cursor) {
+                rows = await this.createQueryBuilder("post")
+                .leftJoinAndSelect('post.user', 'user')            
+                .where(username ? "user.username=:username" : '', { username })
+                .andWhere('post.id != :cursor AND post.created_at <= :time', { cursor, time })
+                .orderBy('post.created_at', 'DESC')
+                .limit(10)
+                .getMany();
+
+            } else {
+                rows = await this.createQueryBuilder("post")
+                .leftJoinAndSelect('post.user', 'user')            
+                .where(username ? "user.username=:username" : '', { username })
+                .orderBy('post.created_at', 'DESC')
+                .limit(10)
+                .getMany();
+            }
+
+            
+            if (rows.length === 0) return { data: null };
+            
+            return {
+                data: rows,
+            }
+
+        } catch (e) {
+            throw e;
+        }
     }
 }
 

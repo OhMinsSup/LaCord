@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, JoinColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, JoinColumn, Column, ManyToOne, OneToMany, CreateDateColumn } from 'typeorm';
 import User from './User';
 import Like from './Like';
 
@@ -37,6 +37,12 @@ class Post {
 
     @Column("varchar", { array: true })
     public tags: string[];
+
+    @CreateDateColumn()
+    public created_at: string;
+
+    @CreateDateColumn()
+    public updated_at: string;
   
     @ManyToOne(type => User, user => user.posts, {
         onDelete: 'CASCADE',

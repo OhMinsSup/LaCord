@@ -60,7 +60,7 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
  * @description 포스트를 업데이트하기 위한 api
  * @param {Context} ctx koa Context
  */
-export const updatePost = async (ctx: Context): Promise<any> => {
+export const updatePost: Middleware = async (ctx: Context): Promise<any> => {
     type BodySchema = {
         title: string,
         body: string,
@@ -102,7 +102,7 @@ export const updatePost = async (ctx: Context): Promise<any> => {
  * @description 포스트를 삭제하기 위한 api
  * @param {Context} ctx koa Context
  */
-export const deletePost = async(ctx: Context): Promise<any> => {
+export const deletePost: Middleware = async(ctx: Context): Promise<any> => {
     const postId: string = ctx['post'].id;
 
     const postCustomRespository = await getCustomRepository(PostRepository);
@@ -123,7 +123,7 @@ export const deletePost = async(ctx: Context): Promise<any> => {
  * @description 포스트를 읽기 위한 api
  * @param {Context} ctx koa Context
  */
-export const readPost = async (ctx: Context): Promise<any> => {
+export const readPost: Middleware = async (ctx: Context): Promise<any> => {
     const { username, id } = ctx.params;
 
     const postCustomRespository = await getCustomRepository(PostRepository);
@@ -135,6 +135,7 @@ export const readPost = async (ctx: Context): Promise<any> => {
 
         if (!post) {
             const user = await userCustomRespository.findUser('username', username);
+            
             if (!user) {
                 ctx.status = 404;
                 return;

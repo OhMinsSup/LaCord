@@ -3,6 +3,7 @@ import * as postsCtrl from './posts.ctrl';
 
 const posts = new Router();
 
-posts.get('/', postsCtrl.readPostsList);
+posts.get('/@:username', postsCtrl.listPosts);
+posts.get('/public', postsCtrl.listPosts);
 
 export default posts;

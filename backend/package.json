@@ -50,6 +50,7 @@
     "lodash": "^4.17.10",
     "pg": "^7.4.3",
     "reflect-metadata": "^0.1.12",
+    "remove-markdown": "^0.3.0",
     "socket.io": "^2.1.1",
     "typeorm": "^0.2.7"
   },
@@ -59,7 +60,7 @@
       "^.+\\.(tsx|ts)?$": "ts-jest"
     },
     "globals": {
-      "__TS_CONFIG__": {}  
+      "__TS_CONFIG__": {}
     },
     "collectCoverage": true,
     "testEnvironment": "node",

@@ -25,9 +25,9 @@ class Database {
                 __dirname + "/entity/*"
             ],
             // dropSchema 및 synchronize는 개발용에서만
-            dropSchema: true,
+           // dropSchema: true,
             synchronize: true
-        })
+        });
 
         this.connection = db;
         return db;
