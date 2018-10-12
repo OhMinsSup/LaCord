@@ -47,6 +47,13 @@ class PostRepository extends Repository<Post> {
       .execute();
   }
 
+  public findById(postId: string) {
+    return this.createQueryBuilder('post')
+      .leftJoinAndSelect('post.user', 'user')
+      .where('post.id=:id', { id: postId })
+      .getOne();
+  }
+
   public readPost(username: string, id: string) {
     return this.createQueryBuilder('post')
       .leftJoinAndSelect('post.user', 'user')
