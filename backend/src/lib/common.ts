@@ -11,8 +11,11 @@ import Post from '../database/entity/Post';
  * @returns {string} password(hash값)
  */
 export const hash = (password: string): string => {
-    return crypto.createHmac('sha256', 'lacord$key$vlaue').update(password).digest('hex');
-}
+  return crypto
+    .createHmac('sha256', 'lacord$key$vlaue')
+    .update(password)
+    .digest('hex');
+};
 
 /**
  * @description 중복된 데이터 없에는 함수
@@ -20,7 +23,7 @@ export const hash = (password: string): string => {
  * @returns {string[]} array
  */
 export const filterUnique = (array: string[]): string[] => {
-    return [...new Set(array)];
+  return [...new Set(array)];
 };
 
 /**
@@ -29,29 +32,29 @@ export const filterUnique = (array: string[]): string[] => {
  * @returns {() => Promise<any>}
  */
 export const checkPostExistancy = async (
-    ctx: Context,
-    next: () => Promise<any>,
-  ): Promise<any> => {
-    const { id } = ctx.params;
-    const postRepository = await getRepository(Post);
+  ctx: Context,
+  next: () => Promise<any>
+): Promise<any> => {
+  const { id } = ctx.params;
+  const postRepository = await getRepository(Post);
 
-    try {
-        const post = await postRepository.findOne({
-            where: {
-                id
-            }
-        });
-      
-      if (!post) {
-        ctx.status = 404;
-        return;
-      }
-      ctx['post'] = post;
-    } catch (e) {
-      ctx.throw(500, e);
+  try {
+    const post = await postRepository.findOne({
+      where: {
+        id,
+      },
+    });
+
+    if (!post) {
+      ctx.status = 404;
       return;
     }
-    return next();
+    ctx['post'] = post;
+  } catch (e) {
+    ctx.throw(500, e);
+    return;
+  }
+  return next();
 };
 
 /**
@@ -60,9 +63,10 @@ export const checkPostExistancy = async (
  * @returns {boolean}
  */
 export const isUUID = (name: string) => {
-    const validation = joi.validate(name, joi.string().uuid());
-    if (validation.error) return false;
-    return true;
+  console.log(name);
+  const validation = joi.validate(name, joi.string().uuid());
+  if (validation.error) return false;
+  return true;
 };
 
 /**
@@ -70,20 +74,20 @@ export const isUUID = (name: string) => {
  * @param {string, string} markdown, type
  * @returns {string}
  */
-export function formatShortDescription(value: string, type: 'markdown' | 'text'): string {
-    let replaced = '';
-    if (type === 'markdown') {
-        replaced = value.replace(/\n/g, ' ').replace(/```(.*)```/g, '');
-        return (
-        removeMd(replaced)
-            .slice(0, 200)
-            .replace(/#/g, '') + (replaced.length > 200 ? '...' : '')
-        );
-    } else {
-        replaced = value.replace(/\n/g, ' ');
-        return (
-            replaced
-            .slice(0, 200) + (replaced.length > 200 ? '...' : '')
-        );
-    }
+export function formatShortDescription(
+  value: string,
+  type: 'markdown' | 'text'
+): string {
+  let replaced = '';
+  if (type === 'markdown') {
+    replaced = value.replace(/\n/g, ' ').replace(/```(.*)```/g, '');
+    return (
+      removeMd(replaced)
+        .slice(0, 200)
+        .replace(/#/g, '') + (replaced.length > 200 ? '...' : '')
+    );
+  } else {
+    replaced = value.replace(/\n/g, ' ');
+    return replaced.slice(0, 200) + (replaced.length > 200 ? '...' : '');
+  }
 }

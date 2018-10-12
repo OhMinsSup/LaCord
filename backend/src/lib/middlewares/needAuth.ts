@@ -7,12 +7,12 @@ import { Context } from 'koa';
  * @returns {() => Promise<any>} next()
  */
 export default (ctx: Context, next: () => Promise<any>) => {
-    const user = ctx['user'];
+  const user = ctx['user'];
 
-    if (!user) {
-        ctx.status = 409;
-        return;
-    }
+  if (!user) {
+    ctx.status = 409;
+    return;
+  }
 
-    return next();
-}
+  return next();
+};
