@@ -4,6 +4,10 @@ import { getCustomRepository } from 'typeorm';
 import CommentRepository from '../../../database/repository/CommentRepository';
 import { serializeComment } from '../../../lib/serialized';
 
+/**@return {Promise<any>}
+ * @description 댓글을 작성하기 위한 api
+ * @param {Context} ctx koa Context
+ */
 export const writeComment = async (ctx: Context): Promise<any> => {
   type BodySchema = {
     text: string;
@@ -51,6 +55,10 @@ export const writeComment = async (ctx: Context): Promise<any> => {
   }
 };
 
+/**@return {Promise<any>}
+ * @description 댓글을 수정하기 위한 api
+ * @param {Context} ctx koa Context
+ */
 export const updateComment: Middleware = async (ctx: Context): Promise<any> => {
   type BodySchema = {
     text: string;
@@ -86,6 +94,10 @@ export const updateComment: Middleware = async (ctx: Context): Promise<any> => {
   }
 };
 
+/**@return {Promise<any>}
+ * @description 댓글을 삭제하기 위한 api
+ * @param {Context} ctx koa Context
+ */
 export const deleteComment: Middleware = async (ctx: Context): Promise<any> => {
   const { commentId } = ctx.params;
 
