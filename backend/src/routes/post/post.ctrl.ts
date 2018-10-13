@@ -50,8 +50,6 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
   // 중복태그 제거
   const uniqueTags: string[] = filterUnique(tags);
 
-  ctx.body = uniqueTags;
-
   try {
     const post = await postCustomRespository.writePost(
       title,

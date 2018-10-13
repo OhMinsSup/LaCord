@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import User from './User';
 import Like from './Like';
+import Comment from './Comment';
 
 @Entity('post')
 class Post {
@@ -64,6 +65,12 @@ class Post {
     onUpdate: 'RESTRICT',
   })
   public post_likes: Like[];
+
+  @OneToMany(type => Comment, comment => comment.post, {
+    onDelete: 'CASCADE',
+    onUpdate: 'RESTRICT',
+  })
+  public post_comments: Comment[];
 
   public count() {
     return this.likes;

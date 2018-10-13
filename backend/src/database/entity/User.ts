@@ -9,6 +9,7 @@ import {
 import { hash } from '../../lib/common';
 import Post from './Post';
 import Like from './Like';
+import Comment from './Comment';
 
 @Entity('user')
 class User {
@@ -46,10 +47,22 @@ class User {
   @CreateDateColumn()
   public updated_at: string;
 
-  @OneToMany(type => Post, post => post.user)
+  @OneToMany(type => Post, post => post.user, {
+    onDelete: 'CASCADE',
+    onUpdate: 'RESTRICT',
+  })
   public posts: Post[];
 
-  @OneToMany(type => Like, like => like.user)
+  @OneToMany(type => Comment, comment => comment.user, {
+    onDelete: 'CASCADE',
+    onUpdate: 'RESTRICT',
+  })
+  public comments: Comment[];
+
+  @OneToMany(type => Like, like => like.user, {
+    onDelete: 'CASCADE',
+    onUpdate: 'RESTRICT',
+  })
   public user_likes: Like[];
 
   public validatePassword(password: string) {

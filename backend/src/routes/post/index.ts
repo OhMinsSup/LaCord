@@ -9,12 +9,12 @@ import { checkPostExistancy } from '../../lib/common';
 const post = new Router();
 
 post.post('/', needAuth, postCtrl.writePost);
-post.patch('/:id', needAuth, checkPostExistancy ,postCtrl.updatePost);
+post.patch('/:id', needAuth, checkPostExistancy, postCtrl.updatePost);
 post.delete('/:id', needAuth, checkPostExistancy, postCtrl.deletePost);
-post.get('/@:username/:id' , needAuth, postCtrl.readPost);
+post.get('/@:username/:id', needAuth, postCtrl.readPost);
 
-post.use('/:id/comment', needAuth, comment.routes());
-post.use('/:id/like', needAuth, like.routes());
+post.use('/:id/comment', needAuth, checkPostExistancy, comment.routes());
+post.use('/:id/like', needAuth, checkPostExistancy, like.routes());
 post.use('/list', needAuth, posts.routes());
 
 export default post;
