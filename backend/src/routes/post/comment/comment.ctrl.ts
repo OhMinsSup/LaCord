@@ -110,3 +110,25 @@ export const deleteComment: Middleware = async (ctx: Context): Promise<any> => {
     ctx.throw(500, e);
   }
 };
+
+/**@return {Promise<any>}
+ * @description 댓글 리스트 api
+ * @param {Context} ctx koa Context
+ */
+export const listComment: Middleware = async (ctx: Context): Promise<any> => {
+  const postId: string = ctx['post'].id;
+  const commentCustomRespository = await getCustomRepository(CommentRepository);
+
+  try {
+    const comments = await commentCustomRespository.readComments(postId);
+
+    if (comments.length === 0 || !comments) {
+      ctx.body = [];
+    }
+
+    const serialized = comments.map(serializeComment);
+    ctx.body = serialized;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};

@@ -41,7 +41,6 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
     return;
   }
 
-  // 각각 모델의 저장소를 만든다
   const postCustomRespository = await getCustomRepository(PostRepository);
 
   const { title, body, post_thumbnail, tags }: BodySchema = ctx.request.body;

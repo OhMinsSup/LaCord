@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev:server": "tsc-watch --onSuccess \" node dist/index.js\"",
+    "dev:test": "tsc-watch --onSuccess \" node dist/test.js\"",
     "build:server": "webpack",
     "test": "jest --detectOpenHandles"
   },

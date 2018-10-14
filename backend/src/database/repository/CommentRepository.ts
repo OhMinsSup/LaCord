@@ -54,6 +54,13 @@ class CommentRepository extends Repository<Comment> {
       .execute();
   }
 
+  public readComments(postId: string) {
+    return this.createQueryBuilder('comment')
+      .leftJoinAndSelect('comment.user', 'user')
+      .where('comment.post=:id', { id: postId })
+      .getMany();
+  }
+
   public readComment(id: string) {
     return this.createQueryBuilder('comment')
       .leftJoinAndSelect('comment.user', 'user')

@@ -66,6 +66,14 @@ export const localRegister: Middleware = async (ctx: Context): Promise<any> => {
     );
     const token = await userCustomRespository.generateToken(user.id);
 
+    if (!token) {
+      ctx.status = 404;
+      ctx.body = {
+        name: 'Token',
+        payload: '토큰이 만들어지지 않았습니다',
+      };
+    }
+
     ctx.cookies.set('access_token', token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
@@ -130,6 +138,15 @@ export const localLogin: Middleware = async (ctx: Context): Promise<any> => {
     }
 
     const token = await userCustomRespository.generateToken(user.id);
+
+    if (!token) {
+      ctx.status = 404;
+      ctx.body = {
+        name: 'Token',
+        payload: '토큰이 만들어지지 않았습니다',
+      };
+    }
+
     ctx.cookies.set('access_token', token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
