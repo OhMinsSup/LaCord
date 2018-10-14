@@ -20,6 +20,7 @@
         "quotemark": false,
         "member-ordering": false,
         "only-arrow-functions": false,
+        "no-var-requires": false,
         "variable-name": false
     },
     "rulesDirectory": [],

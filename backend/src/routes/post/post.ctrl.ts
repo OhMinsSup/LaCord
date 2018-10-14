@@ -57,6 +57,15 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
       user,
       uniqueTags
     );
+
+    if (!post) {
+      ctx.status = 404;
+      ctx.body = {
+        name: 'Post',
+        payload: '포스트가 만들어지지 않았습니다.',
+      };
+      return;
+    }
     const postData = await postCustomRespository.readPostById(post.id);
     // 필요한 데이터만 가져온다.
     ctx.body = serializePost(postData);
