@@ -26,14 +26,17 @@ class Server {
   private middleware(): void {
     const { app } = this;
 
-    app.use(cors());
-    app.use(corsMiddleware);
-    app.use(tokenMiddleware);
     app.use(
       koaBody({
         multipart: true,
+        formidable: {
+          keepExtensions: true,
+        },
       })
     );
+    app.use(cors());
+    app.use(corsMiddleware);
+    app.use(tokenMiddleware);
     app.use(
       compress({
         filter: contentType => {

@@ -5,7 +5,7 @@ import UserRepository from '../../database/repository/UserRepository';
 
 /**@return {void}
  * @description 로컬 회원가입을 하기위한 api
- * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ * @param {Context} ctx koa Context
  */
 export const localRegister: Middleware = async (ctx: Context): Promise<any> => {
   type BodySchema = {
@@ -64,6 +64,7 @@ export const localRegister: Middleware = async (ctx: Context): Promise<any> => {
       password,
       username
     );
+
     const token = await userCustomRespository.generateToken(user.id);
 
     if (!token) {
@@ -94,7 +95,7 @@ export const localRegister: Middleware = async (ctx: Context): Promise<any> => {
 
 /**@return {void}
  * @description 로컬 로그인을 하기위한 api
- * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ * @param {Context} ctx koa Context
  */
 export const localLogin: Middleware = async (ctx: Context): Promise<any> => {
   type BodySchema = {
@@ -167,7 +168,7 @@ export const localLogin: Middleware = async (ctx: Context): Promise<any> => {
 
 /**@return {void}
  * @description 로그아웃을 하기위한 api
- * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ * @param {Context} ctx koa Context
  */
 export const logout: Middleware = (ctx: Context) => {
   ctx.cookies.set('access_token', null, { maxAge: 0, httpOnly: true });
@@ -176,7 +177,7 @@ export const logout: Middleware = (ctx: Context) => {
 
 /**@return {void}
  * @description 존재하는 이메일 또는 유저명인지 확인하는 api
- * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ * @param {Context} ctx koa Context
  */
 export const exists: Middleware = async (ctx: Context): Promise<any> => {
   const { key, value } = ctx.params;
@@ -198,7 +199,7 @@ export const exists: Middleware = async (ctx: Context): Promise<any> => {
 
 /**@return {void}
  * @description 현재 로그인 중인지 체크하는 api
- * @param {Context} ctx koa Context encapsulates node's request and response objects into a single object which provides many helpful methods for writing web applications and APIs
+ * @param {Context} ctx koa Context
  */
 export const check: Middleware = async (ctx: Context): Promise<any> => {
   const user = ctx['user'];

@@ -29,7 +29,7 @@ class Database {
       database: DATA_BASE,
       entities: [__dirname + '/entity/*'],
       // dropSchema 및 synchronize는 개발용에서만
-      dropSchema: true,
+      // dropSchema: true,
       synchronize: true,
     });
 

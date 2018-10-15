@@ -58,15 +58,16 @@ export const writePost: Middleware = async (ctx: Context): Promise<any> => {
       uniqueTags
     );
 
-    if (!post) {
+    const postData = await postCustomRespository.readPostById(post.id);
+
+    if (!postData) {
       ctx.status = 404;
       ctx.body = {
         name: 'Post',
-        payload: '포스트가 만들어지지 않았습니다.',
+        payload: '포스트가 존재하지 않습니다.',
       };
       return;
     }
-    const postData = await postCustomRespository.readPostById(post.id);
     // 필요한 데이터만 가져온다.
     ctx.body = serializePost(postData);
   } catch (e) {
@@ -123,6 +124,15 @@ export const updatePost: Middleware = async (ctx: Context): Promise<any> => {
       postId
     );
     const post = await postCustomRespository.readPostById(postId);
+
+    if (!post) {
+      ctx.status = 404;
+      ctx.body = {
+        name: 'Post',
+        payload: '포스트가 존재하지 않습니다.',
+      };
+      return;
+    }
     ctx.body = serializePost(post);
   } catch (e) {
     ctx.throw(500, e);

@@ -15,7 +15,7 @@ file.post(
   fileCtrl.createCommonThumbnailSignedUrl
 );
 file.post(
-  '/create-url/common-videos',
+  '/create-url/common-video',
   needAuth,
   fileCtrl.createCommonVideoSignedUrl
 );

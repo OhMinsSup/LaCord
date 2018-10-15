@@ -14,9 +14,8 @@ cloudinary.config({
 export const createPostImageSignedUrl: Middleware = async (
   ctx: Context
 ): Promise<any> => {
-  const { files, fileds } = ctx.request.body;
-  const { image } = files;
-  const { postId } = fileds;
+  const { postId } = ctx.request.body;
+  const { image } = ctx.request.files;
 
   if (!image) {
     ctx.status = 400;
@@ -96,8 +95,7 @@ export const createPostImageSignedUrl: Middleware = async (
 export const createCommonThumbnailSignedUrl: Middleware = async (
   ctx: Context
 ): Promise<any> => {
-  const { files } = ctx.request.body;
-  const { image } = files;
+  const { image } = ctx.request.files;
 
   if (!image) {
     ctx.status = 400;
@@ -155,5 +153,41 @@ export const createCommonThumbnailSignedUrl: Middleware = async (
 export const createCommonVideoSignedUrl: Middleware = async (
   ctx: Context
 ): Promise<any> => {
-  ctx.body = '비디오';
+  const { video } = ctx.request.files;
+
+  if (!video) {
+    ctx.status = 400;
+    ctx.body = {
+      name: 'File',
+      payload: '파일을 전달해 줘야합니다',
+    };
+    return;
+  }
+
+  try {
+    const splitFileName: string[] = video.name.split('.');
+    const filename: string = splitFileName[0];
+
+    const response = await cloudinary.v2.uploader.upload(video.path, {
+      public_id: `lacord/common-video/${ctx['user'].username}/${filename}`,
+      width: 853,
+      height: 480,
+    });
+
+    if (!response) {
+      ctx.status = 418;
+      ctx.body = {
+        name: 'UPLOAD',
+        payload: '파일 업로드에 실패하였습니다',
+      };
+    }
+
+    ctx.body = {
+      url: response.url,
+      path: `lacord/common-videos/${ctx['user'].username}/${filename}`,
+      name: filename,
+    };
+  } catch (e) {
+    ctx.throw(500, e);
+  }
 };
