@@ -10,6 +10,7 @@ import { hash } from '../../lib/common';
 import Post from './Post';
 import Like from './Like';
 import Comment from './Comment';
+import Lecture from './Lecture';
 
 @Entity('user')
 class User {
@@ -52,6 +53,12 @@ class User {
     onUpdate: 'RESTRICT',
   })
   public posts: Post[];
+
+  @OneToMany(type => Lecture, lecture => lecture.user, {
+    onDelete: 'CASCADE',
+    onUpdate: 'RESTRICT',
+  })
+  public lectures: Lecture[];
 
   @OneToMany(type => Comment, comment => comment.user, {
     onDelete: 'CASCADE',
