@@ -180,7 +180,12 @@ export const logout: Middleware = (ctx: Context) => {
  * @param {Context} ctx koa Context
  */
 export const exists: Middleware = async (ctx: Context): Promise<any> => {
-  const { key, value } = ctx.params;
+  type ParamsPayload = {
+    key: string;
+    value: string;
+  };
+
+  const { key, value }: ParamsPayload = ctx.params;
 
   const userCustomRespository = await getCustomRepository(UserRepository);
 
