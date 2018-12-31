@@ -3,11 +3,11 @@ import { getCustomRepository } from 'typeorm';
 import * as Joi from 'joi';
 import UserRepository from '../../database/repository/UserRepository';
 
-/**@return {void}
+/**
  * @description 로컬 회원가입을 하기위한 api
  * @param {Context} ctx koa Context
  */
-export const localRegister: Middleware = async (ctx: Context): Promise<any> => {
+export const localRegister: Middleware = async (ctx: Context) => {
   type BodySchema = {
     username: string;
     email: string;
@@ -93,11 +93,11 @@ export const localRegister: Middleware = async (ctx: Context): Promise<any> => {
   }
 };
 
-/**@return {void}
+/**
  * @description 로컬 로그인을 하기위한 api
  * @param {Context} ctx koa Context
  */
-export const localLogin: Middleware = async (ctx: Context): Promise<any> => {
+export const localLogin: Middleware = async (ctx: Context) => {
   type BodySchema = {
     email: string;
     password: string;
@@ -166,7 +166,7 @@ export const localLogin: Middleware = async (ctx: Context): Promise<any> => {
   }
 };
 
-/**@return {void}
+/**
  * @description 로그아웃을 하기위한 api
  * @param {Context} ctx koa Context
  */
@@ -175,11 +175,11 @@ export const logout: Middleware = (ctx: Context) => {
   ctx.status = 204;
 };
 
-/**@return {void}
+/**
  * @description 존재하는 이메일 또는 유저명인지 확인하는 api
  * @param {Context} ctx koa Context
  */
-export const exists: Middleware = async (ctx: Context): Promise<any> => {
+export const exists: Middleware = async (ctx: Context) => {
   type ParamsPayload = {
     key: string;
     value: string;
@@ -202,11 +202,11 @@ export const exists: Middleware = async (ctx: Context): Promise<any> => {
   }
 };
 
-/**@return {void}
+/**
  * @description 현재 로그인 중인지 체크하는 api
  * @param {Context} ctx koa Context
  */
-export const check: Middleware = async (ctx: Context): Promise<any> => {
+export const check: Middleware = async (ctx: Context) => {
   const user = ctx['user'];
 
   if (!user) {

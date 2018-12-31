@@ -1,0 +1,17 @@
+@import "utils";
+
+.aligner {
+  margin-top: 1rem;
+  text-align: right;
+  span {
+    font-size: 0.9rem;
+    color: $oc-gray-4;
+    margin-right: 0.75rem;
+  }
+  a {
+    color: $oc-gray-7;
+    &:hover {
+      color: $oc-gray-8;
+    }
+  }
+}

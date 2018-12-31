@@ -1,76 +1,46 @@
-@import 'utils';
+@import "utils";
 
 .header {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    width: 100%;
-    top: 0px;
-    right: 0px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 0px;
+  width: 100%;
+  .inner {
     background: white;
-    @include material-shadow(1, 0.9);
-    z-index: 20;
-
+    display: flex;
+    justify-content: center;
+    height: auto;
     .wrapper {
-        display: flex;
-        justify-content: center;
-        height: auto;
-        .content {
-            width: 1200px;
-            height: 3.5rem;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            position: relative;
-            padding-right: 5%;
-            padding-left: 5%;
+      width: 1200px;
+      height: 55px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding-right: 1rem;
+      padding-left: 1rem;
 
-            @include media("<wide") {
-                width: 1024px;
-            }
-            @include media("<x-large") {
-                width: 992px;
-            }
+      @include media("<=1200px") {
+        width: 992px;
+      }
+      @include media("<=768px") {
+        width: 100%;
+      }
 
-            @include media("<large") {
-                width: 700px;
-            }
-            
-            @include media("<medium") {
-                width: 380px;
-            }      
-
-            @include media("<small") {
-                width: 100%;
-                padding-left: 0.75rem;
-                padding-right: 0.75rem;
-            }  
-
-            .right-side {
-                .desktop-only {
-                  display: flex;
-                  transition: width .3s ease-in-out;
-                  .flex-box {
-                      display: flex;
-                    &.row {
-                        flex-direction: row;
-                    }
-                    &.column {
-                        flex-direction: column;
-                    }
-                    &.center {
-                        align-items: center;
-                        justify-content: center;
-                    }
-                  }
-                }
-                .mobile-only {
-                  @include media(">=medium") {
-                    display: none;
-                  }
-                }
-                margin-left: auto;
-            }
-        }
+      .logo {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+        color: $oc-teal-7;
+        font-family: "Rajdhani";
+      }
+      .spacer {
+        flex-grow: 1;
+      }
     }
+  }
+
+  .gradient-border {
+    height: 1px;
+    border-bottom: 1px solid $oc-gray-4;
+  }
 }

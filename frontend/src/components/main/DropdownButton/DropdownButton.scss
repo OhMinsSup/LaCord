@@ -1,0 +1,37 @@
+@import "utils";
+
+.dropdown-button {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0;
+  margin: 0;
+  background-color: transparent !important;
+  transition: opacity 0.15s ease-in-out, color 0.15s ease-in-out;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 22px;
+  opacity: 1;
+  li {
+    width: 70px;
+    height: 72px;
+    position: relative;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 400;
+    svg {
+      display: inline-block;
+      vertical-align: middle;
+      position: absolute;
+      overflow: visible !important;
+      fill: currentColor;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      transform: scale(1.1);
+    }
+  }
+}

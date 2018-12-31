@@ -38,6 +38,9 @@ export function checkEmpty(text: string) {
   return false;
 }
 
+/**
+ * @description JSON_WEB_TOKEN의 토큰값을 타입으로 선언
+ */
 export type TokenType = {
   id: string;
   username: string;

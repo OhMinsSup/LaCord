@@ -1,16 +1,16 @@
-import React from 'react';
-import PageTemplate from '../components/base/PageTemplate';
-import LandingTemplateContainer from '../containers/landing/LandingTemplateContainer';
-import HeaderContaienr from '../containers/base/HeaderContainer';
+import React from "react";
+import PageTemplate from "../components/base/PageTemplate";
+import HeaderContainer from "../containers/base/HeaderContainer";
+import MainHead from "../containers/main/MainHead";
+import MainBody from "../containers/main/MainBody";
 
 const Home = () => {
-    return (
-        <PageTemplate
-            header={<HeaderContaienr />}
-        >
-            <LandingTemplateContainer />
-        </PageTemplate>
-    )
-}
+  return (
+    <PageTemplate header={<HeaderContainer />}>
+      <MainHead />
+      <MainBody />
+    </PageTemplate>
+  );
+};
 
 export default Home;

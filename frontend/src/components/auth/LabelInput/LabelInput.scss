@@ -1,0 +1,39 @@
+@import "utils";
+
+.label-input {
+  position: relative;
+  margin-top: 1rem;
+  .label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: $oc-gray-7;
+    span {
+      color: $oc-red-7;
+    }
+    @include media("<large") {
+      font-size: 0.75rem;
+    }
+  }
+
+  input {
+    width: 100%;
+    line-height: 2rem;
+    font-size: 1.25rem;
+    margin-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid $oc-gray-4;
+    @include media("<large") {
+      font-size: 1rem;
+      padding-bottom: 0.35rem;
+    }
+    &:focus {
+      border-bottom: 2px solid $oc-teal-7;
+    }
+    &.disabled {
+      width: calc(100% - 3rem);
+    }
+  }
+}
