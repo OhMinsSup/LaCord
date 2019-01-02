@@ -72,21 +72,21 @@
     margin-top: 1rem;
     padding-top: 0.6rem;
     padding-bottom: 0.6rem;
-    background: $oc-teal-6;
+    background: $oc-red-6;
     color: white;
     text-align: center;
     font-size: 1.1rem;
     cursor: pointer;
     user-select: none;
     transition: 0.2s all;
-    border: 1px solid $oc-teal-7;
+    border: 1px solid $oc-red-7;
     border-radius: 2px;
     &:hover {
-      background: $oc-teal-5;
+      background: $oc-red-5;
       @include material-shadow(0);
     }
     &:active {
-      background: $oc-teal-7;
+      background: $oc-red-7;
     }
   }
 }

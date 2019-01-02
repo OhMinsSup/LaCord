@@ -4,9 +4,11 @@ import styles from "./DropdownButton.scss";
 
 const cx = classNames.bind(styles);
 
-const DropdownButton = ({ icon }) => (
-  <label className={cx("dropdown-button")}>
-    <li>{icon}</li>
+const DropdownButton = ({ icon, type, onMouseOver, name, onClick }) => (
+  <label className={cx("dropdown-button")} onClick={onClick}>
+    <li className={cx({ type })} onMouseOver={() => onMouseOver(name)}>
+      {icon}
+    </li>
   </label>
 );
 

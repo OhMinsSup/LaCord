@@ -26,7 +26,7 @@ export const filterUnique = (array: string[]): string[] => {
  * @param {string} text
  * @returns {boolean}
  */
-export function checkEmpty(text: string) {
+export const checkEmpty = (text: string) => {
   if (!text) return true;
   const replaced = text
     .trim()

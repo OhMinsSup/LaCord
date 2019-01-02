@@ -35,6 +35,7 @@
       text-align: center;
       padding-bottom: 0;
       @include media("<medium") {
+        margin-top: 3rem;
         padding-bottom: 40px;
       }
       .title {

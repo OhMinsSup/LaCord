@@ -20,6 +20,13 @@
     display: inline-block;
     vertical-align: middle;
     font-weight: 400;
+    color: $oc-gray-4;
+    &.type {
+      color: white;
+    }
+    &:hover {
+      color: white;
+    }
     svg {
       display: inline-block;
       vertical-align: middle;

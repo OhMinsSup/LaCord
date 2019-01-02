@@ -6,7 +6,6 @@ import {
   OneToMany,
 } from 'typeorm';
 import { hash } from '../../lib/common';
-import Letter from './Letter';
 
 @Entity('user')
 class User {
@@ -35,12 +34,6 @@ class User {
     type: 'varchar',
   })
   public password: string;
-
-  @OneToMany(type => Letter, letter => letter.user, {
-    onDelete: 'CASCADE',
-    onUpdate: 'RESTRICT',
-  })
-  public letters: Letter[];
 
   @CreateDateColumn()
   public created_at: string;
