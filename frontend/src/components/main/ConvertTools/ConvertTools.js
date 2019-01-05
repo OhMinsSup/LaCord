@@ -24,6 +24,7 @@ const ConvertTools = () => {
             description="글꼴을 변환 시킬 수 있습니다."
             boder={true}
             boder2={false}
+            to="/convert/font"
           />
           <ConvertTool
             icon={<MdVideoLibrary />}
@@ -31,6 +32,7 @@ const ConvertTools = () => {
             description="비디오를 변환 시킬 수 있습니다"
             boder={true}
             boder2={false}
+            to="/convert/video"
           />
           <ConvertTool
             icon={<MdSlowMotionVideo />}
@@ -38,6 +40,7 @@ const ConvertTools = () => {
             description="오디오를 변환 시킬 수 있습니다"
             boder={false}
             boder2={false}
+            to="/convert/audio"
           />
           <ConvertTool
             icon={<MdInsertDriveFile />}
@@ -45,6 +48,7 @@ const ConvertTools = () => {
             description="문서를 변환 시킬 수 있습니다"
             boder={true}
             boder2={true}
+            to="/convert/doc"
           />
           <ConvertTool
             icon={<MdInsertPhoto />}
@@ -52,6 +56,7 @@ const ConvertTools = () => {
             description="이미지를 변환 시킬 수 있습니다"
             boder={true}
             boder2={true}
+            to="/convert/image"
           />
           <ConvertTool
             icon={<FaYoutube />}
@@ -59,6 +64,7 @@ const ConvertTools = () => {
             description="유튜브를 변환 시킬 수 있습니다"
             boder={false}
             boder2={true}
+            to="/convert/youtube"
           />
         </div>
       </div>

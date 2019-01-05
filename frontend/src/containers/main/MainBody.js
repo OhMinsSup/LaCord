@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import ConvertTools from "../../components/main/ConvertTools";
 
 class MainBody extends Component {
@@ -7,4 +8,9 @@ class MainBody extends Component {
   }
 }
 
-export default MainBody;
+const enhance = connect(
+  state => ({}),
+  dispatch => ({})
+);
+
+export default enhance(MainBody);

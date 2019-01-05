@@ -1,0 +1,175 @@
+@import "utils";
+
+.convert-modal {
+  display: flex;
+  position: relative;
+  width: 650px;
+  height: auto;
+  background-color: white;
+  overflow: hidden;
+  border-radius: 4px;
+  padding: 0 16px 0 16px;
+  .modal-content {
+    width: 100%;
+    background: white;
+    padding: 1.5rem 1rem;
+    color: $oc-gray-9;
+    .title {
+      display: flex;
+      flex-direction: row;
+      h4 {
+        margin: 0;
+        font-weight: 500;
+        font-size: 1.25rem;
+      }
+      .convert-wrapper {
+        margin-left: 1.2rem;
+        padding: 0 5px 0 5px;
+        flex-direction: row;
+        .to {
+          margin-right: 0.5rem;
+        }
+        .convert {
+          padding: 5px;
+          font-weight: 600;
+          border: 1px solid $oc-gray-8;
+          border-radius: 4px;
+        }
+      }
+    }
+    .contents {
+      display: flex;
+      flex-direction: row;
+      overflow: auto;
+      margin-top: 1.25rem;
+      .left-content {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        width: 30%;
+        .wrapper {
+          padding: 10px;
+          border-right: 1px solid $oc-gray-2;
+          .file {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .icon {
+              width: 5rem;
+              height: 5rem;
+              color: $oc-gray-4;
+            }
+            .name {
+              margin-top: 1rem;
+              font-weight: 500;
+            }
+          }
+          .subinfo {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            color: $oc-gray-7;
+            p + p::before {
+              color: $oc-gray-5;
+              padding-left: 0.25rem;
+              padding-right: 0.25rem;
+              content: "\00B7";
+            }
+          }
+        }
+      }
+      .right-contents {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        width: 80%;
+        .wrapper {
+          .convert-types {
+            display: flex;
+            flex-direction: row;
+            .types {
+              list-style: none;
+              font-weight: 300;
+              line-height: 15px;
+              font-size: 14px;
+              li {
+                padding: 4px 25px 4px 1px;
+                position: relative;
+                white-space: nowrap;
+                color: $oc-gray-8;
+                cursor: pointer;
+                &:hover {
+                  color: white;
+                  font-weight: 600;
+                  background: $oc-red-7;
+                  border-radius: 2px;
+                }
+              }
+              ::after {
+                content: "";
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                right: 10px;
+                transform: rotate(45deg);
+                margin: auto 0;
+                width: 6px;
+                height: 6px;
+                border-color: $oc-gray-8;
+                border-style: solid;
+                border-width: 1px 1px 0 0;
+                transition: border-color 0.15s ease-in-out;
+              }
+              li + li {
+                margin-top: 0.8rem;
+              }
+            }
+            .details {
+              position: relative;
+              left: 35px;
+              padding: 15px;
+              border: 1px solid $oc-gray-9;
+              border-radius: 4px;
+              .detail {
+                list-style: none;
+                overflow-y: auto;
+                margin: 0;
+                padding: 9px 10px;
+                li {
+                  display: inline-block;
+                  vertical-align: top;
+                  padding: 0;
+                  margin: 0;
+                  cursor: pointer;
+                  text-align: center;
+                  font-size: 13px !important;
+                  line-height: 21px !important;
+                  font-weight: 300 !important;
+                  letter-spacing: -0.2px;
+                  text-transform: uppercase;
+                  width: 33.333% !important;
+                  &:hover {
+                    background: $oc-red-7;
+                    color: white;
+                    border-radius: 4px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .button-area {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 2rem;
+      .button + .button {
+        margin-left: 1rem;
+      }
+    }
+  }
+}

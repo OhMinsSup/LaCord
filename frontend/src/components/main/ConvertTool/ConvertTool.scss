@@ -22,6 +22,21 @@
       border-bottom: 1px solid $oc-gray-2;
     }
   }
+  &:hover {
+    background: $oc-gray-2;
+    .card .card-content a b {
+      color: $oc-red-8;
+      font-size: 1.25rem;
+    }
+    .card .card-content a svg {
+      color: $oc-red-8;
+      font-size: 4.5rem;
+    }
+    .card .card-content a span {
+      color: $oc-red-8;
+      font-size: 1.1rem;
+    }
+  }
   .card {
     display: flex;
     flex-direction: column;
@@ -35,7 +50,6 @@
     border: none;
     color: $oc-gray-6;
     text-align: center;
-    z-index: 2;
     .card-content {
       padding: 50px 20px 56px;
       transition: all 0.15s ease-in-out;
