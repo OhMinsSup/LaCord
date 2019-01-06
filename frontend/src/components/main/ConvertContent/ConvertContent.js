@@ -18,10 +18,13 @@ class ConvertContent extends Component {
     this.state = {
       authLoad: false,
       pickerLoad: false,
+      dropboxLoad: false,
       lable_title: "Computer"
     };
+    this.onLoadDropBoxAPI = this.onLoadDropBoxAPI.bind(this);
     this.onLoadGoogleDriveAPI = this.onLoadGoogleDriveAPI.bind(this);
     this.onGoogleDriveClick = this.onGoogleDriveClick.bind(this);
+    this.onDropBoxClick = this.onDropBoxClick.bind(this);
     this.onAuth = this.onAuth.bind(this);
     this.onPicker = this.onPicker.bind(this);
   }
@@ -81,6 +84,14 @@ class ConvertContent extends Component {
     window.gapi.load("picker", this.onPicker);
   }
 
+  onDropBoxClick() {
+    window.Dropbox.choose({
+      success: file => console.log(file),
+      cancel: () => console.log("closed"),
+      multiselect: true
+    });
+  }
+
   onLoadGoogleDriveAPI() {
     window.gapi.load("auth", () => {
       this.setState({
@@ -94,18 +105,36 @@ class ConvertContent extends Component {
     });
   }
 
+  onLoadDropBoxAPI() {
+    this.setState({
+      dropboxLoad: true
+    });
+  }
+
+  // https://www.dropbox.com/developers/chooser
+  // https://github.com/sdoomz/react-dropbox-chooser/blob/master/src/react-dropbox-chooser.js
   // https://code.i-harness.com/ko-kr/q/1565652
   // https://developers.google.com/drive/api/v2/picker
   // https://developers.google.com/picker/docs/
   // https://github.com/howdy39/google-picker-api-demo/blob/master/docs/index.html
   componentDidMount() {
     loadScript("https://apis.google.com/js/api.js", this.onLoadGoogleDriveAPI);
+    loadScript(
+      "https://www.dropbox.com/static/api/2/dropins.js",
+      {
+        attrs: {
+          id: "dropboxjs",
+          "data-app-key": "xybx46lekf3atxf"
+        }
+      },
+      this.onLoadDropBoxAPI
+    );
   }
 
   render() {
     const { onComputerClick } = this.props;
     const { lable_title } = this.state;
-    const { onGoogleDriveClick } = this;
+    const { onGoogleDriveClick, onDropBoxClick } = this;
 
     return (
       <div className={cx("convert-content")}>
@@ -140,7 +169,7 @@ class ConvertContent extends Component {
                     type={lable_title === "Dropbox"}
                     name="Dropbox"
                     onMouseOver={this.onMouseOver}
-                    onClick={() => console.log("ddd")}
+                    onClick={onDropBoxClick}
                   />
                   <DropdownButton
                     icon={<FaLink />}
