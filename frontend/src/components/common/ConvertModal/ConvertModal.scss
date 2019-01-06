@@ -3,7 +3,7 @@
 .convert-modal {
   display: flex;
   position: relative;
-  width: 650px;
+  width: 750px;
   height: auto;
   background-color: white;
   overflow: hidden;
@@ -46,7 +46,7 @@
         display: flex;
         position: relative;
         flex-direction: column;
-        width: 30%;
+        width: 40%;
         .wrapper {
           padding: 10px;
           border-right: 1px solid $oc-gray-2;
@@ -84,7 +84,7 @@
         display: flex;
         position: relative;
         flex-direction: column;
-        width: 80%;
+        width: 60%;
         .wrapper {
           .convert-types {
             display: flex;
@@ -95,7 +95,7 @@
               line-height: 15px;
               font-size: 14px;
               li {
-                padding: 4px 25px 4px 1px;
+                padding: 5px 25px 5px 5px;
                 position: relative;
                 white-space: nowrap;
                 color: $oc-gray-8;

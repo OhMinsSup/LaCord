@@ -2,10 +2,15 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "./Header.scss";
 import Button from "../../common/Button";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
-const Logo = ({ children }) => <div className={cx("logo")}>{children}</div>;
+const Logo = ({ children }) => (
+  <Link to="/" className={cx("logo")}>
+    {children}
+  </Link>
+);
 
 const Header = () => {
   return (

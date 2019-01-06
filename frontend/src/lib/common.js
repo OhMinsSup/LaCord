@@ -1,21 +1,14 @@
-import { pender } from 'redux-pender';
+export const number_to_human_size = size => {
+  const size_types = ["bytes", "kB", "MB", "GB", "TB", "PB"];
+  const value = Math.floor(Math.log(size) / Math.log(1024));
 
-type Reducer = (state: any, action: any) => any;
+  return (size / Math.pow(1024, value)).toFixed(2) + " " + size_types[value];
+};
 
-export function applyPenders<T: Reducer>(reducer: T, penders: any[]): T {
-    const updaters = Object.assign({}, ...penders.map(pender));
-    return ((state, action) => {
-      if (updaters[action.type]) {
-        return updaters[action.type](state, action);
-      }
-      return reducer(state, action);
-    }: any);    
-}
+export const number_with_delimiter = size => {
+  return String(size).replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+};
 
-export type GenericResponseAction<D, M> = {
-    type: string,
-    payload: {
-      data: D,
-    },
-    meta: M,
+export const parseSize = size => {
+  return number_with_delimiter(number_to_human_size(size));
 };

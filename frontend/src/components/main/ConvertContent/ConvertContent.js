@@ -1,17 +1,29 @@
+// eslint-disable-next-line no-unused-vars
+/*global google*/
 import React, { Component } from "react";
 import classNames from "classnames/bind";
 import styles from "./ConvertContent.scss";
 import { FaGoogleDrive, FaDropbox, FaLink, FaLaptop } from "react-icons/fa";
 import DropdownButton from "../DropdownButton/DropdownButton";
+import loadScript from "load-script";
 
+const google = (window.google = window.google ? window.google : {});
 const cx = classNames.bind(styles);
 
 class ConvertContent extends Component {
+  oauthToken = null;
+
   constructor(props) {
     super(props);
     this.state = {
+      authLoad: false,
+      pickerLoad: false,
       lable_title: "Computer"
     };
+    this.onLoadGoogleDriveAPI = this.onLoadGoogleDriveAPI.bind(this);
+    this.onGoogleDriveClick = this.onGoogleDriveClick.bind(this);
+    this.onAuth = this.onAuth.bind(this);
+    this.onPicker = this.onPicker.bind(this);
   }
 
   onMouseOver = name => {
@@ -20,9 +32,81 @@ class ConvertContent extends Component {
     });
   };
 
+  onAuth() {
+    window.gapi.auth.authorize(
+      {
+        client_id:
+          "23034082308-13i77g116r2ovl7r8o11b12f3a25fj88.apps.googleusercontent.com",
+        scope: ["https://www.googleapis.com/auth/drive.file"]
+      },
+      oauthClient => {
+        if (oauthClient && !oauthClient.error) {
+          this.oauthToken = oauthClient.access_token;
+          this.onPicker();
+        } else {
+          throw new Error("oauthClient not define");
+        }
+      }
+    );
+  }
+
+  onPicker() {
+    const { authLoad, pickerLoad } = this.state;
+    if (authLoad && pickerLoad) {
+      const viewId = google.picker.ViewId["FOLDERS"];
+      const view = new google.picker.View(viewId);
+
+      if (!view) {
+        throw new Error("Can't find view by viewId");
+      }
+
+      if (this.oauthToken) {
+        const picker = new google.picker.PickerBuilder()
+          .setOAuthToken(this.oauthToken)
+          .addView(view)
+          .addView(new google.picker.DocsView())
+          .setCallback(data => {
+            if (data.action === google.picker.Action.PICKED) {
+              alert("The user selected: " + data);
+            }
+          })
+          .build();
+        picker.setVisible(true);
+      }
+    }
+  }
+
+  onGoogleDriveClick() {
+    window.gapi.load("auth", this.onAuth);
+    window.gapi.load("picker", this.onPicker);
+  }
+
+  onLoadGoogleDriveAPI() {
+    window.gapi.load("auth", () => {
+      this.setState({
+        authLoad: true
+      });
+    });
+    window.gapi.load("picker", () => {
+      this.setState({
+        pickerLoad: true
+      });
+    });
+  }
+
+  // https://code.i-harness.com/ko-kr/q/1565652
+  // https://developers.google.com/drive/api/v2/picker
+  // https://developers.google.com/picker/docs/
+  // https://github.com/howdy39/google-picker-api-demo/blob/master/docs/index.html
+  componentDidMount() {
+    loadScript("https://apis.google.com/js/api.js", this.onLoadGoogleDriveAPI);
+  }
+
   render() {
     const { onComputerClick } = this.props;
     const { lable_title } = this.state;
+    const { onGoogleDriveClick } = this;
+
     return (
       <div className={cx("convert-content")}>
         <h1>파일 변환기</h1>
@@ -47,6 +131,7 @@ class ConvertContent extends Component {
                   <DropdownButton
                     icon={<FaGoogleDrive />}
                     type={lable_title === "GoogleDirve"}
+                    onClick={onGoogleDriveClick}
                     name="GoogleDirve"
                     onMouseOver={this.onMouseOver}
                   />
@@ -55,12 +140,14 @@ class ConvertContent extends Component {
                     type={lable_title === "Dropbox"}
                     name="Dropbox"
                     onMouseOver={this.onMouseOver}
+                    onClick={() => console.log("ddd")}
                   />
                   <DropdownButton
                     icon={<FaLink />}
                     type={lable_title === "Link"}
                     name="Link"
                     onMouseOver={this.onMouseOver}
+                    onClick={() => console.log("ddd")}
                   />
                 </div>
               </div>
