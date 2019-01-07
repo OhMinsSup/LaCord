@@ -55,22 +55,22 @@ class ConvertContent extends Component {
 
   onPicker() {
     const { authLoad, pickerLoad } = this.state;
+    const { onUpload } = this.props;
     if (authLoad && pickerLoad) {
-      const viewId = google.picker.ViewId["FOLDERS"];
-      const view = new google.picker.View(viewId);
-
-      if (!view) {
-        throw new Error("Can't find view by viewId");
-      }
-
       if (this.oauthToken) {
         const picker = new google.picker.PickerBuilder()
           .setOAuthToken(this.oauthToken)
-          .addView(view)
+          .addView(google.picker.ViewId.PHOTOS)
           .addView(new google.picker.DocsView())
           .setCallback(data => {
             if (data.action === google.picker.Action.PICKED) {
-              alert("The user selected: " + data);
+              const { mimeType, name, sizeBytes, url } = data.docs[0];
+              onUpload({
+                name,
+                type: mimeType,
+                size: sizeBytes,
+                url
+              });
             }
           })
           .build();
@@ -85,12 +85,34 @@ class ConvertContent extends Component {
   }
 
   onDropBoxClick() {
+    const { onUpload } = this.props;
+    // eslint-disable-next-line prefer-const
+    let type = [];
+
     window.Dropbox.choose({
-      success: file => console.log(file),
-      cancel: () => console.log("closed"),
+      success: file => {
+        const { name, bytes, link } = file[0];
+        name.split(".").map(name => type.push(name));
+        onUpload({ name, size: bytes, type: type[type.length - 1], url: link });
+      },
       multiselect: true
     });
   }
+
+  onComputerClick = () => {
+    const upload = document.createElement("input");
+    upload.type = "file";
+    upload.onchange = e => {
+      if (!upload.files) return;
+      const file = upload.files[0];
+      this.props.onUpload(file);
+    };
+    upload.click();
+  };
+
+  onUrlClick = () => {
+    this.props.onClick();
+  };
 
   onLoadGoogleDriveAPI() {
     window.gapi.load("auth", () => {
@@ -132,9 +154,13 @@ class ConvertContent extends Component {
   }
 
   render() {
-    const { onComputerClick } = this.props;
     const { lable_title } = this.state;
-    const { onGoogleDriveClick, onDropBoxClick } = this;
+    const {
+      onGoogleDriveClick,
+      onDropBoxClick,
+      onComputerClick,
+      onUrlClick
+    } = this;
 
     return (
       <div className={cx("convert-content")}>
@@ -176,7 +202,7 @@ class ConvertContent extends Component {
                     type={lable_title === "Link"}
                     name="Link"
                     onMouseOver={this.onMouseOver}
-                    onClick={() => console.log("ddd")}
+                    onClick={onUrlClick}
                   />
                 </div>
               </div>

@@ -1,0 +1,72 @@
+@import "utils";
+
+.url-modal {
+  display: flex;
+  position: relative;
+  width: 35rem;
+  height: auto;
+  background: white;
+  border-radius: 4px;
+  padding: 0 16px;
+  .modal-content {
+    width: 100%;
+    background: white;
+    padding: 1rem 1rem;
+    color: $oc-gray-9;
+    h4 {
+      margin: 0;
+      font-weight: 500;
+      font-size: 1.25rem;
+    }
+    p {
+      font-weight: 400;
+      color: $oc-gray-4;
+    }
+    .error {
+      color: $oc-red-7;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .input-wrapper {
+      margin-top: 0.5rem;
+      display: flex;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid $oc-gray-5;
+      font-size: 1.125rem;
+      align-items: center;
+      line-height: 2.5rem;
+      &:focus {
+        border: none;
+      }
+      input {
+        color: inherit;
+        line-height: inherit;
+        font-weight: 600;
+        font-size: inherit;
+        border: none;
+        outline: none;
+        padding-left: 0.9rem;
+        background: white;
+        flex: 1;
+        min-width: 0;
+        &::placeholder {
+          font-weight: 400;
+          font-size: 1rem;
+          color: $oc-gray-7;
+        }
+        &:focus {
+          border: 2px solid $oc-red-7;
+        }
+      }
+    }
+    .button-area {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 2rem;
+      .button + .button {
+        margin-left: 1rem;
+      }
+    }
+  }
+}

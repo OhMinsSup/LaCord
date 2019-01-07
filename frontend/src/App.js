@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
 import { Switch, Route } from "react-router-dom";
-import { Home, Auth, Convert } from "./page";
+import { Home, Auth } from "./page";
 import ConvertModalContainer from "./containers/main/ConvertModalContainer";
+import UrlModalContainer from "./containers/main/UrlModalContainer";
 
 const App = () => {
   return (
@@ -9,11 +10,8 @@ const App = () => {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/auth" component={Auth} />
-        <Route
-          path="/convert/(font|video|audio|doc|image|youtube)"
-          component={Convert}
-        />
       </Switch>
+      <UrlModalContainer />
       <ConvertModalContainer />
     </Fragment>
   );

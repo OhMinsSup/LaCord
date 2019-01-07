@@ -1,14 +1,12 @@
 import React from "react";
 import PageTemplate from "../components/base/PageTemplate";
 import HeaderContainer from "../containers/base/HeaderContainer";
-import MainHead from "../containers/main/MainHead";
-import MainBody from "../containers/main/MainBody";
+import Main from "../containers/main/Main";
 
 const Home = () => {
   return (
     <PageTemplate header={<HeaderContainer />}>
-      <MainHead />
-      <MainBody />
+      <Main />
     </PageTemplate>
   );
 };

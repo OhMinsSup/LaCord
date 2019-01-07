@@ -24,15 +24,15 @@
   }
   &:hover {
     background: $oc-gray-2;
-    .card .card-content a b {
+    .card .card-content .inner b {
       color: $oc-red-8;
       font-size: 1.25rem;
     }
-    .card .card-content a svg {
+    .card .card-content .inner svg {
       color: $oc-red-8;
       font-size: 4.5rem;
     }
-    .card .card-content a span {
+    .card .card-content .inner span {
       color: $oc-red-8;
       font-size: 1.1rem;
     }
@@ -53,7 +53,7 @@
     .card-content {
       padding: 50px 20px 56px;
       transition: all 0.15s ease-in-out;
-      a {
+      .inner {
         display: block;
         font-size: 22px;
         line-height: 28px;

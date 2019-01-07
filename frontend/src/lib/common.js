@@ -12,3 +12,8 @@ export const number_with_delimiter = size => {
 export const parseSize = size => {
   return number_with_delimiter(number_to_human_size(size));
 };
+
+export const isUrl = value => {
+  const regex = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?/;
+  return regex.test(value);
+};

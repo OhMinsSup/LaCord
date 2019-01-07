@@ -12,13 +12,20 @@ class ConvertModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: null
+      type: null,
+      focus: "image"
     };
   }
 
+  onClick = value => {
+    this.setState({
+      focus: value
+    });
+  };
+
   render() {
-    const { type } = this.state;
-    const { open, title, confirmText, fileData } = this.props;
+    const { type, focus } = this.state;
+    const { open, title, confirmText, fileData, onCancel } = this.props;
     return (
       <ModalWrapper open={open}>
         <div className={cx("convert-modal")}>
@@ -40,7 +47,7 @@ class ConvertModal extends Component {
                     <span className={cx("name")}>{fileData.name}</span>
                   </div>
                   <span className={cx("subinfo")}>
-                    <p>{parseSize(fileData.size)}</p>
+                    <p>{fileData.size === 0 ? 0 : parseSize(fileData.size)}</p>
                     <p>{fileData.type}</p>
                   </span>
                 </div>
@@ -49,11 +56,36 @@ class ConvertModal extends Component {
                 <div className={cx("wrapper")}>
                   <div className={cx("convert-types")}>
                     <ul className={cx("types")}>
-                      <li>이미지</li>
-                      <li>비디오</li>
-                      <li>문서</li>
-                      <li>유튜브</li>
-                      <li>글꼴</li>
+                      <li
+                        className={cx({ active: focus === "image" })}
+                        onClick={() => this.onClick("image")}
+                      >
+                        이미지
+                      </li>
+                      <li
+                        className={cx({ active: focus === "video" })}
+                        onClick={() => this.onClick("video")}
+                      >
+                        비디오
+                      </li>
+                      <li
+                        className={cx({ active: focus === "doc" })}
+                        onClick={() => this.onClick("doc")}
+                      >
+                        문서
+                      </li>
+                      <li
+                        className={cx({ active: focus === "font" })}
+                        onClick={() => this.onClick("font")}
+                      >
+                        글꼴
+                      </li>
+                      <li
+                        className={cx({ active: focus === "audio" })}
+                        onClick={() => this.onClick("audio")}
+                      >
+                        오디오
+                      </li>
                     </ul>
                     <div className={cx("details")}>
                       <ul className={cx("detail")}>
@@ -72,7 +104,11 @@ class ConvertModal extends Component {
               </div>
             </div>
             <div className={cx("button-area")}>
-              <Button theme="outline" className={cx("button")}>
+              <Button
+                theme="outline"
+                className={cx("button")}
+                onClick={onCancel}
+              >
                 취소
               </Button>
               <Button theme="outline" className={cx("button")}>
