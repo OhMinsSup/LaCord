@@ -39,8 +39,6 @@ class UrlModalContainer extends Component {
     });
 
     const validation = this.onValidate["url"](value);
-    console.log(validation);
-
     if (!validation) return;
   };
 
@@ -52,6 +50,7 @@ class UrlModalContainer extends Component {
   render() {
     const { input, error } = this.state;
     const { url_modal } = this.props;
+
     return (
       <UrlModal
         open={url_modal}
