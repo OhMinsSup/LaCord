@@ -1,14 +1,21 @@
-export type V1_Type = 'jpg' | 'pdf' | 'pdfa' | 'png' | 'tiff' | 'zip';
-export type V2_Type = 'html' | 'doc' | 'docx' | 'xls';
+export type ImageType = 'jpeg' | 'bmp' | 'tiff' | 'png' | 'gif';
+export type YouTudeType = 'mp3' | 'mp4';
 
-export interface IBasicOption {
-  v1_type: V1_Type | null;
-  v2_type: V2_Type | null;
+export interface CustomOption {
+  resize: {
+    x: number;
+    y: number;
+  } | null;
+}
+
+export interface BasicOption {
+  type: ImageType | YouTudeType | null;
+  name: string | null;
   file_path: string | null;
   file_url: string | null;
 }
 
-export interface IUserToken {
+export interface UserToken {
   id: string;
   username: string;
   email: string;

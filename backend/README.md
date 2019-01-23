@@ -34,3 +34,6 @@ On the backend:
 [변환 관련 라이브러리2](https://www.npmjs.com/package/officegen)
 
 [변환 관련 라이브러리3](https://docx.js.org/)
+
+[이미지 변환3](https://www.npmjs.com/package/jimp)
+[이미지 변환 응용](https://medium.com/@rossbulat/image-processing-in-nodejs-with-jimp-174f39336153)

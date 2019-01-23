@@ -93,7 +93,12 @@ class ConvertContent extends Component {
       success: file => {
         const { name, bytes, link } = file[0];
         name.split(".").map(name => type.push(name));
-        onUpload({ name, size: bytes, type: type[type.length - 1], url: link });
+        onUpload({
+          name,
+          size: bytes,
+          type: type[type.length - 1],
+          url: link
+        });
       },
       multiselect: true
     });
@@ -132,7 +137,7 @@ class ConvertContent extends Component {
       dropboxLoad: true
     });
   }
-  
+
   componentDidMount() {
     loadScript("https://apis.google.com/js/api.js", this.onLoadGoogleDriveAPI);
     loadScript(

@@ -21,7 +21,8 @@
         "member-ordering": false,
         "only-arrow-functions": false,
         "no-var-requires": false,
-        "variable-name": false
+        "variable-name": false,
+        "max-classes-per-file": false
     },
     "rulesDirectory": [],
     "jsRules": {}
