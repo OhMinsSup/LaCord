@@ -1,0 +1,10 @@
+@import "utils";
+
+.search-template {
+  width: 768px;
+  margin: 0 auto;
+  margin-top: 4rem;
+  @include media("<medium") {
+    width: 100%;
+  }
+}

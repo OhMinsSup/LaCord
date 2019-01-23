@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import ConvertTools from "../../components/main/ConvertTools";
 import * as fileActions from "../../store/modules/file";
 import * as baseActions from "../../store/modules/base";
 
@@ -22,7 +21,6 @@ class Main extends Component {
     return (
       <Fragment>
         <ConvertContent onUpload={this.onUpload} onClick={this.onClick} />
-        <ConvertTools />
       </Fragment>
     );
   }

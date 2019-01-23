@@ -56,7 +56,7 @@ class UrlModalContainer extends Component {
         open={url_modal}
         input={input}
         error={error}
-        title="Youtube 변환"
+        title="URL 변환"
         confirmText="변환"
         onChange={this.onChange}
         onCancel={this.onCancel}

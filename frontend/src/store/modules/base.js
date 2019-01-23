@@ -4,15 +4,18 @@ const HIDE_USER_MODAL = "base/HIDE_USER_MODAL";
 const SHOW_USER_MODAL = "base/SHOW_USER_MODAL";
 const HIDE_URL_MODAL = "base/HIDE_URL_MODAL";
 const SHOW_URL_MODAL = "base/SHOW_URL_MODAL";
+const YOUTUBE_LIBRARY_LOADED = "base/YOUTUBE_LIBRARY_LOADED";
 
-export const hideUserModal = createAction(HIDE_USER_MODAL, visible => visible);
-export const showUserModal = createAction(SHOW_USER_MODAL, visible => visible);
-export const hideUrlModal = createAction(HIDE_URL_MODAL, visible => visible);
-export const showUrlModal = createAction(SHOW_URL_MODAL, visible => visible);
+export const hideUserModal = createAction(HIDE_USER_MODAL);
+export const showUserModal = createAction(SHOW_USER_MODAL);
+export const hideUrlModal = createAction(HIDE_URL_MODAL);
+export const showUrlModal = createAction(SHOW_URL_MODAL);
+export const youtubeLibraryLoad = createAction(YOUTUBE_LIBRARY_LOADED);
 
 const initialState = {
   user_modal: false,
-  url_modal: false
+  url_modal: false,
+  youtube_library_load: false
 };
 
 export default handleActions(
@@ -32,6 +35,10 @@ export default handleActions(
     [SHOW_URL_MODAL]: (state, action) => ({
       ...state,
       url_modal: true
+    }),
+    [YOUTUBE_LIBRARY_LOADED]: (state, action) => ({
+      ...state,
+      youtube_library_load: true
     })
   },
   initialState

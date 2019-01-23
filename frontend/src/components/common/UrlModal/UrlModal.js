@@ -19,7 +19,7 @@ const UrlModal = ({
     <div className={cx("url-modal")}>
       <div className={cx("modal-content")}>
         {title && <h4>{title}</h4>}
-        <p>youtube 링크를 입력하시면 mp3형태로 변환합니다.</p>
+        <p>url 링크를 입력하면 파일을 변환합니다.</p>
         <div className={cx("input-wrapper")}>
           <input value={input} onChange={onChange} placeholder="https://" />
         </div>

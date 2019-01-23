@@ -17,3 +17,24 @@ export const isUrl = value => {
   const regex = /^(((http(s?))\:\/\/)?)([0-9a-zA-Z\-]+\.)+[a-zA-Z]{2,6}(\:[0-9]+)?(\/\S*)?/;
   return regex.test(value);
 };
+
+export const removeEmptyParams = params => {
+  for (const p in params) {
+    if (!params[p] || params[p] === "undefined") {
+      delete params[p];
+    }
+  }
+  return params;
+};
+
+export const buildApiRequest = async (requestMethod, path, params) => {
+  params = removeEmptyParams(params);
+
+  const request = await window.gapi.client.request({
+    method: requestMethod,
+    path: path,
+    params: params
+  });
+
+  return request;
+};

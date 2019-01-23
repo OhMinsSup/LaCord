@@ -3,7 +3,13 @@
 import React, { Component } from "react";
 import classNames from "classnames/bind";
 import styles from "./ConvertContent.scss";
-import { FaGoogleDrive, FaDropbox, FaLink, FaLaptop } from "react-icons/fa";
+import {
+  FaGoogleDrive,
+  FaDropbox,
+  FaLink,
+  FaLaptop,
+  FaYoutube
+} from "react-icons/fa";
 import DropdownButton from "../DropdownButton/DropdownButton";
 import loadScript from "load-script";
 
@@ -60,7 +66,6 @@ class ConvertContent extends Component {
       if (this.oauthToken) {
         const picker = new google.picker.PickerBuilder()
           .setOAuthToken(this.oauthToken)
-          .addView(google.picker.ViewId.PHOTOS)
           .addView(new google.picker.DocsView())
           .setCallback(data => {
             if (data.action === google.picker.Action.PICKED) {
@@ -163,7 +168,7 @@ class ConvertContent extends Component {
 
     return (
       <div className={cx("convert-content")}>
-        <h1>파일 변환기</h1>
+        <h1>변환기</h1>
         <div className={cx("container")}>
           <div className={cx("file-source-wrapper")}>
             <span className={cx("title")}>
@@ -202,6 +207,13 @@ class ConvertContent extends Component {
                     name="Link"
                     onMouseOver={this.onMouseOver}
                     onClick={onUrlClick}
+                  />
+                  <DropdownButton
+                    icon={<FaYoutube />}
+                    type={lable_title === "Link"}
+                    to="/search"
+                    name="Youtuebe"
+                    onMouseOver={this.onMouseOver}
                   />
                 </div>
               </div>
