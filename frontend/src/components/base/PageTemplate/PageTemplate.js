@@ -4,7 +4,7 @@ import styles from "./PageTemplate.scss";
 
 const cx = classNames.bind(styles);
 
-const PageTemplate = ({ children, header }) => (
+const PageTemplate = ({ children, header, none }) => (
   <div className={cx("page-template")}>
     {header && <header>{header}</header>}
     <main>
