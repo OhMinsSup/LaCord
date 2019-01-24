@@ -38,24 +38,39 @@ export default applyPenders(reducer, [
   {
     type: PUBLIC_SEARCH,
     onPending: (state, action) => {
-      const { meta } = action;
       return produce(state, draft => {
+        const { meta } = action;
         draft.currentKeyword = meta.query;
       });
     },
     onSuccess: (state, action) => {
-      return {
-        ...state,
-        results: action.payload.result.items.map(item => ({
+      return produce(state, draft => {
+        draft.results = action.payload.result.items.map(item => ({
           ...item,
           id: item.id.videoId
-        })),
-        totalResults: action.payload.result.pageInfo.totalResults,
-        nextPageToken: action.payload.result.nextPageToken
-      };
-    },
+        }));
+        draft.totalResults = action.payload.result.pageInfo.totalResults;
+        draft.nextPageToken = action.payload.result.nextPageToken;
+      });
+    }
+  },
+  {
     type: NEXT_PUBLIC_SEARCH,
-    onPending: (state, action) => {},
-    onSuccess: (state, action) => {}
+    onSuccess: (state, action) => {
+      return produce(state, draft => {
+        const {
+          payload: { result }
+        } = action;
+        if (!draft.results) return;
+
+        draft.results = draft.results.concat(
+          result.items.map(item => ({
+            ...item,
+            id: item.id.videoId
+          }))
+        );
+        draft.nextPageToken = result.nextPageToken;
+      });
+    }
   }
 ]);

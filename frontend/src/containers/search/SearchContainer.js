@@ -18,9 +18,19 @@ class SearchContainer extends Component {
       return null;
     }
     SearchActions.initialize();
-    return SearchActions.publicSearch({
-      query: keyword
-    });
+    return SearchActions.publicSearch(keyword);
+  };
+
+  onSearchNext = () => {
+    const {
+      currentKeyword,
+      nextPageToken,
+      pending,
+      SearchActions
+    } = this.props;
+    if (pending) return;
+
+    SearchActions.nextPublicSearch(currentKeyword, nextPageToken, 25);
   };
 
   loadYoutubeApi() {
@@ -48,18 +58,25 @@ class SearchContainer extends Component {
     const { results, totalResults } = this.props;
     return (
       <SearchTemplate searchBar={<SearchBar onSearch={this.onSearch} />}>
-        <SearchResults videos={results} count={totalResults} />
+        <SearchResults
+          videos={results}
+          count={totalResults}
+          onSearchNext={this.onSearchNext}
+        />
       </SearchTemplate>
     );
   }
 }
 
 const enhance = connect(
-  ({ base, search }) => ({
+  ({ base, search, pender }) => ({
     results: search.results,
     currentKeyword: search.currentKeyword,
     nextPageToken: search.nextPageToken,
-    totalResults: search.totalResults
+    totalResults: search.totalResults,
+    pending:
+      pender.pending["search/NEXT_PUBLIC_SEARCH"] ||
+      pender.pending["search/PUBLIC_SEARCH"]
   }),
   dispatch => ({
     BaseActions: bindActionCreators(baseActions, dispatch),

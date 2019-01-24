@@ -11,6 +11,12 @@
       color: $oc-gray-9;
     }
   }
+  .videos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   .more-btn {
     margin-top: 3rem;
     color: $oc-red-5;
