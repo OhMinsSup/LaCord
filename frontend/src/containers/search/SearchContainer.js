@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import * as baseActions from "../../store/modules/base";
 import * as searchActions from "../../store/modules/search";
+import * as fileActions from "../../store/modules/file";
 
 import SearchBar from "../../components/search/SearchBar";
 import SearchTemplate from "../../components/search/SearchTemplate";
@@ -79,6 +80,7 @@ const enhance = connect(
       pender.pending["search/PUBLIC_SEARCH"]
   }),
   dispatch => ({
+    FileActions: bindActionCreators(fileActions, dispatch),
     BaseActions: bindActionCreators(baseActions, dispatch),
     SearchActions: bindActionCreators(searchActions, dispatch)
   })

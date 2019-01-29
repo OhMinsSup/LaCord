@@ -7,16 +7,17 @@
   line-height: 0.875rem;
   font-size: 0.875rem;
   &.default {
-    background: $oc-violet-5;
+    background: $oc-red-5;
     color: white;
+    border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background ease-in 0.125s;
     &:hover {
-      background: $oc-violet-4;
+      background: $oc-red-4;
     }
     &:active {
-      background: $oc-violet-5;
+      background: $oc-red-5;
     }
   }
   &.outline {

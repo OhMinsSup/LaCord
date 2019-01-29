@@ -14,9 +14,13 @@ package.json로 확인해주세요
 ## On the Frontend:
 
 React - Javascript (Client ❤️)
+
 Redux - redux-pender (Redux 💪🏻)
+
 immer (immutable data 🙏🏻)
+
 SCSS (Styles - open-color, include-media - 💅🏻)
+
 Prettier (code styles 💅🏻)
 
 ## 참고사이트

@@ -94,23 +94,6 @@
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     color: $oc-gray-8;
-    .between {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      .thumbnail {
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-      }
-      .username {
-        margin-left: 1rem;
-        font-size: 1rem;
-        font-weight: 600;
-        color: $oc-gray-7;
-        text-decoration: none;
-      }
-    }
 
     h3 {
       display: block;
@@ -125,6 +108,12 @@
         text-decoration: none;
         color: $oc-gray-7;
       }
+    }
+
+    p {
+      word-break: break-all;
+      font-size: 0.8rem;
+      color: $oc-gray-5;
     }
 
     .subinfo {
