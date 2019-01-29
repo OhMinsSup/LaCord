@@ -1,14 +1,34 @@
 import { Middleware, Context } from 'koa';
 import * as fs from 'fs';
-import Convert from '../../lib/convert';
-import { ImageType, YouTudeType } from '../../types/types';
+import * as Joi from 'joi';
+
+import Image from '../../lib/Image';
+import Youtube from '../../lib/Youtube';
+
+import { ImageType, YouTudeType, QualityType } from '../../types/types';
 
 export const convertFile: Middleware = async (ctx: Context) => {
   type BodySchema = {
-    type: ImageType | YouTudeType;
-    name: string | null;
-    url: string | null;
+    type: ImageType;
+    name: string;
+    url: string;
   };
+
+  const schema = Joi.object().keys({
+    type: Joi.string()
+      .valid('jpeg', 'bmp', 'tiff', 'png', 'gif')
+      .required(),
+    url: Joi.string().uri(),
+    name: Joi.string(),
+  });
+
+  const result = Joi.validate(ctx.request.body, schema);
+
+  if (result.error) {
+    ctx.status = 404;
+    ctx.body = result.error;
+    return;
+  }
 
   const {
     files: { file },
@@ -24,14 +44,14 @@ export const convertFile: Middleware = async (ctx: Context) => {
     }
 
     try {
-      const convert = await new Convert({
+      const convert = new Image({
         name: file.name,
         type,
         file_path: file.path,
         file_url: null,
       });
 
-      const result = await convert.imageConvert();
+      const result = await convert.convert_v1();
 
       if (!result) {
         ctx.status = 404;
@@ -42,7 +62,7 @@ export const convertFile: Middleware = async (ctx: Context) => {
         return;
       }
 
-      ctx.status = 204;
+      ctx.status = 200;
       return;
     } catch (e) {
       ctx.throw(500, e);
@@ -50,14 +70,14 @@ export const convertFile: Middleware = async (ctx: Context) => {
   }
 
   try {
-    const convert = await new Convert({
+    const convert = new Image({
       name,
       type,
       file_path: null,
       file_url: url,
     });
 
-    const result = await convert.imageConvert();
+    const result = await convert.convert_v1();
 
     if (!result) {
       ctx.status = 404;
@@ -68,7 +88,59 @@ export const convertFile: Middleware = async (ctx: Context) => {
       return;
     }
 
-    ctx.status = 204;
+    ctx.status = 200;
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
+export const convertYoutube: Middleware = (ctx: Context) => {
+  type BodySchema = {
+    url: string;
+    name: string;
+    type: YouTudeType;
+    quality: QualityType;
+  };
+
+  const schema = Joi.object().keys({
+    url: Joi.string()
+      .uri()
+      .required(),
+    name: Joi.string().required(),
+    type: Joi.string()
+      .valid('mp3', 'mp4')
+      .required(),
+    quality: Joi.string().valid(
+      'highest',
+      'lowest',
+      'highestaudio',
+      'lowestaudio',
+      'highestvideo',
+      'lowestvideo'
+    ),
+  });
+
+  const result = Joi.validate(ctx.request.body, schema);
+
+  if (result.error) {
+    ctx.status = 404;
+    ctx.body = result.error;
+    return;
+  }
+
+  const { url, name, type, quality }: BodySchema = ctx.request.body;
+
+  try {
+    const convert = new Youtube({
+      name,
+      type,
+      url,
+      quality,
+    });
+
+    convert.convert_v1();
+
+    ctx.status = 200;
   } catch (e) {
     ctx.throw(500, e);
   }

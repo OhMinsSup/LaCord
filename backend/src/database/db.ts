@@ -34,7 +34,13 @@ class Database {
     });
 
     this.connection = db;
-    console.log('LaCord Database Conntection ✅');
+    if (this.connection === null || !this.connection) {
+      return new Error(
+        'DB connection error. Please make sure Postgresql is running.'
+      );
+    }
+
+    console.log('Lacord Database Conntection ✅');
     return db;
   }
 }
