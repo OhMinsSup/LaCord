@@ -2,12 +2,14 @@
 
 .video-template {
   main {
-    display: grid;
-    grid-template: auto auto auto 1fr / minmax(0, 1280px) 402px;
+    display: flex;
+    flex-direction: column;
+    // display: grid;
+    //  grid-template: auto auto auto 1fr / minmax(0, 1280px);
     justify-content: center;
     padding-top: 24px;
-    column-gap: 24px;
-    grid-row: 8px;
+    // column-gap: 24px;
+    // grid-row: 8px;
 
     @media (max-width: 1754px) {
       padding-left: 24px;

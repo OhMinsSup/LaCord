@@ -6,18 +6,20 @@ import Button from "../../common/Button";
 
 const cx = classNames.bind(styles);
 
-const VideoMeta = ({ title }) => (
-  <div className={cx("video-meta")}>
-    <div className={cx("video-wrapper")}>
-      <div className={cx("left")}>
-        <h3>{title}</h3>
-      </div>
-      <div className={cx("right")}>
-        <Button className={cx("btn")}>MP3 변환</Button>
-        <Button className={cx("btn")}>MP4 변환</Button>
+const VideoMeta = ({ title }) => {
+  return (
+    <div className={cx("video-meta")}>
+      <div className={cx("video-wrapper")}>
+        <div className={cx("left")}>
+          <h3>{title}</h3>
+        </div>
+        <div className={cx("right")}>
+          <Button className={cx("btn")}>MP3 변환</Button>
+          <Button className={cx("btn")}>MP4 변환</Button>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default VideoMeta;
