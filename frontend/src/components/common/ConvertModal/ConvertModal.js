@@ -8,23 +8,24 @@ import { parseSize } from "../../../lib/common";
 
 const cx = classNames.bind(styles);
 
+const options = ["jpeg", "bmp", "tiff", "png", "gif"];
+
 class ConvertModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: null,
-      focus: "image"
+      selected: "jpeg"
     };
   }
 
-  onClick = value => {
+  onSelect = e => {
     this.setState({
-      focus: value
+      selected: e.target.value
     });
   };
 
   render() {
-    const { type, focus } = this.state;
+    const { selected } = this.state;
     const { open, title, confirmText, fileData, onCancel } = this.props;
     return (
       <ModalWrapper open={open}>
@@ -35,12 +36,20 @@ class ConvertModal extends Component {
               <div className={cx("convert-wrapper")}>
                 <span className={cx("to")}>to</span>
                 <span className={cx("convert")}>
-                  {type === null ? "없음" : type}
+                  <select value={selected} onChange={this.onSelect}>
+                    {options.map(option => {
+                      return (
+                        <option value={option} key={option}>
+                          {option}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </span>
               </div>
             </div>
             <div className={cx("contents")}>
-              <div className={cx("left-content")}>
+              <div className={cx("content")}>
                 <div className={cx("wrapper")}>
                   <div className={cx("file")}>
                     <FaFileAlt className={cx("icon")} />
@@ -50,56 +59,6 @@ class ConvertModal extends Component {
                     <p>{fileData.size === 0 ? 0 : parseSize(fileData.size)}</p>
                     <p>{fileData.type}</p>
                   </span>
-                </div>
-              </div>
-              <div className={cx("right-contents")}>
-                <div className={cx("wrapper")}>
-                  <div className={cx("convert-types")}>
-                    <ul className={cx("types")}>
-                      <li
-                        className={cx({ active: focus === "image" })}
-                        onClick={() => this.onClick("image")}
-                      >
-                        이미지
-                      </li>
-                      <li
-                        className={cx({ active: focus === "video" })}
-                        onClick={() => this.onClick("video")}
-                      >
-                        비디오
-                      </li>
-                      <li
-                        className={cx({ active: focus === "doc" })}
-                        onClick={() => this.onClick("doc")}
-                      >
-                        문서
-                      </li>
-                      <li
-                        className={cx({ active: focus === "font" })}
-                        onClick={() => this.onClick("font")}
-                      >
-                        글꼴
-                      </li>
-                      <li
-                        className={cx({ active: focus === "audio" })}
-                        onClick={() => this.onClick("audio")}
-                      >
-                        오디오
-                      </li>
-                    </ul>
-                    <div className={cx("details")}>
-                      <ul className={cx("detail")}>
-                        <li>DOC</li>
-                        <li>PDF</li>
-                        <li>PDF</li>
-                        <li>DOC</li>
-                        <li>PDF</li>
-                        <li>PDF</li>
-                        <li>PDF</li>
-                        <li>PDF</li>
-                      </ul>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>

@@ -5,6 +5,7 @@ import * as fileActions from "../../store/modules/file";
 import * as baseActions from "../../store/modules/base";
 
 import ConvertContent from "../../components/main/ConvertContent";
+import IntroductionCards from "../../components/main/IntroductionCards";
 
 class Main extends Component {
   onUpload = file => {
@@ -21,6 +22,7 @@ class Main extends Component {
     return (
       <Fragment>
         <ConvertContent onUpload={this.onUpload} onClick={this.onClick} />
+        <IntroductionCards />
       </Fragment>
     );
   }

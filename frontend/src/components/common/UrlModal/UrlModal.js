@@ -6,12 +6,16 @@ import Button from "../Button";
 
 const cx = classNames.bind(styles);
 
+const options = ["jpeg", "bmp", "tiff", "png", "gif"];
+
 const UrlModal = ({
   open,
   title,
   confirmText,
   onCancel,
   input,
+  selected,
+  onSelect,
   onChange,
   error
 }) => (
@@ -19,7 +23,18 @@ const UrlModal = ({
     <div className={cx("url-modal")}>
       <div className={cx("modal-content")}>
         {title && <h4>{title}</h4>}
-        <p>url 링크를 입력하면 파일을 변환합니다.</p>
+        <p>변환하고 싶은 타입이 있으면 밑에 선택 박스에서 선택해주세요</p>
+        <div className={cx("select-wrapper")}>
+          <select value={selected} onChange={onSelect}>
+            {options.map(option => {
+              return (
+                <option value={option} key={option}>
+                  {option}
+                </option>
+              );
+            })}
+          </select>
+        </div>
         <div className={cx("input-wrapper")}>
           <input value={input} onChange={onChange} placeholder="https://" />
         </div>

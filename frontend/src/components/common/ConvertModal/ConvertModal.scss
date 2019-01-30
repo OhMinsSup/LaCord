@@ -3,7 +3,7 @@
 .convert-modal {
   display: flex;
   position: relative;
-  width: 810px;
+  width: 400px;
   height: auto;
   background-color: white;
   overflow: hidden;
@@ -42,14 +42,13 @@
       flex-direction: row;
       overflow: auto;
       margin-top: 1.25rem;
-      .left-content {
+      .content {
         display: flex;
         position: relative;
         flex-direction: column;
-        width: 50%;
+        width: 100%;
         .wrapper {
           padding: 10px;
-          border-right: 1px solid $oc-gray-2;
           .file {
             display: flex;
             flex-direction: column;
@@ -76,76 +75,6 @@
               padding-left: 0.25rem;
               padding-right: 0.25rem;
               content: "\00B7";
-            }
-          }
-        }
-      }
-      .right-contents {
-        display: flex;
-        position: relative;
-        flex-direction: row;
-        width: 50%;
-        .wrapper {
-          width: 100%;
-          padding: 10px;
-          .convert-types {
-            display: flex;
-            flex-direction: column;
-            .types {
-              display: flex;
-              flex-direction: row;
-              list-style: none;
-              font-weight: 300;
-              font-size: 14px;
-              padding: 0;
-              margin: 0 0 10px 0;
-              li {
-                flex: 1 1 auto;
-                text-align: center;
-                padding: 5px;
-                position: relative;
-                white-space: nowrap;
-                color: $oc-gray-8;
-                cursor: pointer;
-                &:hover {
-                  font-weight: 700;
-                  border-bottom: 2px solid $oc-red-7;
-                }
-                &.active {
-                  font-weight: 700;
-                  border-bottom: 2px solid $oc-red-7;
-                }
-              }
-            }
-            .details {
-              position: relative;
-              padding: 15px;
-              border-radius: 4px;
-              .detail {
-                list-style: none;
-                overflow-y: auto;
-                margin: 0;
-                padding: 9px 10px;
-                li {
-                  display: inline-block;
-                  vertical-align: top;
-                  padding: 0;
-                  margin: 0;
-                  cursor: pointer;
-                  text-align: center;
-                  font-size: 13px !important;
-                  line-height: 21px !important;
-                  font-weight: 300 !important;
-                  letter-spacing: -0.2px;
-                  text-transform: uppercase;
-                  width: 33.333% !important;
-                  &:hover {
-                    background: $oc-red-7;
-                    color: white;
-                    border-radius: 4px;
-                  }
-                }
-              }
             }
           }
         }

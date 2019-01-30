@@ -27,9 +27,18 @@ class UrlModalContainer extends Component {
 
     this.state = {
       input: "",
-      error: null
+      error: null,
+      select: "jpeg"
     };
   }
+
+  onSelect = e => {
+    const { value } = e.target;
+
+    this.setState({
+      select: value
+    });
+  };
 
   onChange = e => {
     const { value } = e.target;
@@ -48,7 +57,7 @@ class UrlModalContainer extends Component {
   };
 
   render() {
-    const { input, error } = this.state;
+    const { input, error, select } = this.state;
     const { url_modal } = this.props;
 
     return (
@@ -56,8 +65,10 @@ class UrlModalContainer extends Component {
         open={url_modal}
         input={input}
         error={error}
+        selected={select}
         title="URL 변환"
         confirmText="변환"
+        onSelect={this.onSelect}
         onChange={this.onChange}
         onCancel={this.onCancel}
       />
