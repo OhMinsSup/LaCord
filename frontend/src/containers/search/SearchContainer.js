@@ -1,323 +1,16 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import * as baseActions from "../../store/modules/base";
 import * as searchActions from "../../store/modules/search";
 import * as fileActions from "../../store/modules/file";
+import * as youtubeActions from "../../store/modules/youtube";
 
 import SearchBar from "../../components/search/SearchBar";
 import SearchTemplate from "../../components/search/SearchTemplate";
 import SearchResults from "../../components/search/SearchResults";
-
-const a = [
-  {
-    kind: "youtube#searchResult",
-    etag: '"XpPGQXPnxQJhLgs6enD_n8JR4Qk/RsX1zkYUxFx2dsnI4f7HrfTZH7M"',
-    id: {
-      kind: "youtube#video",
-      videoId: "uIGxFwheG-Q"
-    },
-    snippet: {
-      publishedAt: "2019-01-27T01:02:49.000Z",
-      channelId: "UC6xWZn2suKPqAQkidOiMeHg",
-      title: "그치만.. 이렇게라도 하지 않으면 딸기단 나에게 관심도 없는 걸!",
-      description:
-        "181101 ✿ 더보기를 눌러주세요 ✿ ❀ 에렌디라 후원하기 (Donate for Erendira) Twip(Twitch) : https://twip.kr/donate/erenjjing ❀ 유튜브 구독하기 ...",
-      thumbnails: {
-        default: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/default.jpg",
-          width: 120,
-          height: 90
-        },
-        medium: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/mqdefault.jpg",
-          width: 320,
-          height: 180
-        },
-        high: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/hqdefault.jpg",
-          width: 480,
-          height: 360
-        }
-      },
-      channelTitle: "YouTube에렌디라",
-      liveBroadcastContent: "none"
-    }
-  },
-  {
-    kind: "youtube#searchResult",
-    etag: '"XpPGQXPnxQJhLgs6enD_n8JR4Qk/RsX1zkYUxFx2dsnI4f7HrfTZH7M"',
-    id: {
-      kind: "youtube#video",
-      videoId: "uIGxFwheG-Q"
-    },
-    snippet: {
-      publishedAt: "2019-01-27T01:02:49.000Z",
-      channelId: "UC6xWZn2suKPqAQkidOiMeHg",
-      title: "그치만.. 이렇게라도 하지 않으면 딸기단 나에게 관심도 없는 걸!",
-      description:
-        "181101 ✿ 더보기를 눌러주세요 ✿ ❀ 에렌디라 후원하기 (Donate for Erendira) Twip(Twitch) : https://twip.kr/donate/erenjjing ❀ 유튜브 구독하기 ...",
-      thumbnails: {
-        default: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/default.jpg",
-          width: 120,
-          height: 90
-        },
-        medium: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/mqdefault.jpg",
-          width: 320,
-          height: 180
-        },
-        high: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/hqdefault.jpg",
-          width: 480,
-          height: 360
-        }
-      },
-      channelTitle: "YouTube에렌디라",
-      liveBroadcastContent: "none"
-    }
-  },
-  {
-    kind: "youtube#searchResult",
-    etag: '"XpPGQXPnxQJhLgs6enD_n8JR4Qk/RsX1zkYUxFx2dsnI4f7HrfTZH7M"',
-    id: {
-      kind: "youtube#video",
-      videoId: "uIGxFwheG-Q"
-    },
-    snippet: {
-      publishedAt: "2019-01-27T01:02:49.000Z",
-      channelId: "UC6xWZn2suKPqAQkidOiMeHg",
-      title: "그치만.. 이렇게라도 하지 않으면 딸기단 나에게 관심도 없는 걸!",
-      description:
-        "181101 ✿ 더보기를 눌러주세요 ✿ ❀ 에렌디라 후원하기 (Donate for Erendira) Twip(Twitch) : https://twip.kr/donate/erenjjing ❀ 유튜브 구독하기 ...",
-      thumbnails: {
-        default: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/default.jpg",
-          width: 120,
-          height: 90
-        },
-        medium: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/mqdefault.jpg",
-          width: 320,
-          height: 180
-        },
-        high: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/hqdefault.jpg",
-          width: 480,
-          height: 360
-        }
-      },
-      channelTitle: "YouTube에렌디라",
-      liveBroadcastContent: "none"
-    }
-  },
-  {
-    kind: "youtube#searchResult",
-    etag: '"XpPGQXPnxQJhLgs6enD_n8JR4Qk/RsX1zkYUxFx2dsnI4f7HrfTZH7M"',
-    id: {
-      kind: "youtube#video",
-      videoId: "uIGxFwheG-Q"
-    },
-    snippet: {
-      publishedAt: "2019-01-27T01:02:49.000Z",
-      channelId: "UC6xWZn2suKPqAQkidOiMeHg",
-      title: "그치만.. 이렇게라도 하지 않으면 딸기단 나에게 관심도 없는 걸!",
-      description:
-        "181101 ✿ 더보기를 눌러주세요 ✿ ❀ 에렌디라 후원하기 (Donate for Erendira) Twip(Twitch) : https://twip.kr/donate/erenjjing ❀ 유튜브 구독하기 ...",
-      thumbnails: {
-        default: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/default.jpg",
-          width: 120,
-          height: 90
-        },
-        medium: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/mqdefault.jpg",
-          width: 320,
-          height: 180
-        },
-        high: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/hqdefault.jpg",
-          width: 480,
-          height: 360
-        }
-      },
-      channelTitle: "YouTube에렌디라",
-      liveBroadcastContent: "none"
-    }
-  },
-  {
-    kind: "youtube#searchResult",
-    etag: '"XpPGQXPnxQJhLgs6enD_n8JR4Qk/RsX1zkYUxFx2dsnI4f7HrfTZH7M"',
-    id: {
-      kind: "youtube#video",
-      videoId: "uIGxFwheG-Q"
-    },
-    snippet: {
-      publishedAt: "2019-01-27T01:02:49.000Z",
-      channelId: "UC6xWZn2suKPqAQkidOiMeHg",
-      title: "그치만.. 이렇게라도 하지 않으면 딸기단 나에게 관심도 없는 걸!",
-      description:
-        "181101 ✿ 더보기를 눌러주세요 ✿ ❀ 에렌디라 후원하기 (Donate for Erendira) Twip(Twitch) : https://twip.kr/donate/erenjjing ❀ 유튜브 구독하기 ...",
-      thumbnails: {
-        default: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/default.jpg",
-          width: 120,
-          height: 90
-        },
-        medium: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/mqdefault.jpg",
-          width: 320,
-          height: 180
-        },
-        high: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/hqdefault.jpg",
-          width: 480,
-          height: 360
-        }
-      },
-      channelTitle: "YouTube에렌디라",
-      liveBroadcastContent: "none"
-    }
-  },
-  {
-    kind: "youtube#searchResult",
-    etag: '"XpPGQXPnxQJhLgs6enD_n8JR4Qk/RsX1zkYUxFx2dsnI4f7HrfTZH7M"',
-    id: {
-      kind: "youtube#video",
-      videoId: "uIGxFwheG-Q"
-    },
-    snippet: {
-      publishedAt: "2019-01-27T01:02:49.000Z",
-      channelId: "UC6xWZn2suKPqAQkidOiMeHg",
-      title: "그치만.. 이렇게라도 하지 않으면 딸기단 나에게 관심도 없는 걸!",
-      description:
-        "181101 ✿ 더보기를 눌러주세요 ✿ ❀ 에렌디라 후원하기 (Donate for Erendira) Twip(Twitch) : https://twip.kr/donate/erenjjing ❀ 유튜브 구독하기 ...",
-      thumbnails: {
-        default: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/default.jpg",
-          width: 120,
-          height: 90
-        },
-        medium: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/mqdefault.jpg",
-          width: 320,
-          height: 180
-        },
-        high: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/hqdefault.jpg",
-          width: 480,
-          height: 360
-        }
-      },
-      channelTitle: "YouTube에렌디라",
-      liveBroadcastContent: "none"
-    }
-  },
-  {
-    kind: "youtube#searchResult",
-    etag: '"XpPGQXPnxQJhLgs6enD_n8JR4Qk/RsX1zkYUxFx2dsnI4f7HrfTZH7M"',
-    id: {
-      kind: "youtube#video",
-      videoId: "uIGxFwheG-Q"
-    },
-    snippet: {
-      publishedAt: "2019-01-27T01:02:49.000Z",
-      channelId: "UC6xWZn2suKPqAQkidOiMeHg",
-      title: "그치만.. 이렇게라도 하지 않으면 딸기단 나에게 관심도 없는 걸!",
-      description:
-        "181101 ✿ 더보기를 눌러주세요 ✿ ❀ 에렌디라 후원하기 (Donate for Erendira) Twip(Twitch) : https://twip.kr/donate/erenjjing ❀ 유튜브 구독하기 ...",
-      thumbnails: {
-        default: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/default.jpg",
-          width: 120,
-          height: 90
-        },
-        medium: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/mqdefault.jpg",
-          width: 320,
-          height: 180
-        },
-        high: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/hqdefault.jpg",
-          width: 480,
-          height: 360
-        }
-      },
-      channelTitle: "YouTube에렌디라",
-      liveBroadcastContent: "none"
-    }
-  },
-  {
-    kind: "youtube#searchResult",
-    etag: '"XpPGQXPnxQJhLgs6enD_n8JR4Qk/RsX1zkYUxFx2dsnI4f7HrfTZH7M"',
-    id: {
-      kind: "youtube#video",
-      videoId: "uIGxFwheG-Q"
-    },
-    snippet: {
-      publishedAt: "2019-01-27T01:02:49.000Z",
-      channelId: "UC6xWZn2suKPqAQkidOiMeHg",
-      title: "그치만.. 이렇게라도 하지 않으면 딸기단 나에게 관심도 없는 걸!",
-      description:
-        "181101 ✿ 더보기를 눌러주세요 ✿ ❀ 에렌디라 후원하기 (Donate for Erendira) Twip(Twitch) : https://twip.kr/donate/erenjjing ❀ 유튜브 구독하기 ...",
-      thumbnails: {
-        default: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/default.jpg",
-          width: 120,
-          height: 90
-        },
-        medium: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/mqdefault.jpg",
-          width: 320,
-          height: 180
-        },
-        high: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/hqdefault.jpg",
-          width: 480,
-          height: 360
-        }
-      },
-      channelTitle: "YouTube에렌디라",
-      liveBroadcastContent: "none"
-    }
-  },
-  {
-    kind: "youtube#searchResult",
-    etag: '"XpPGQXPnxQJhLgs6enD_n8JR4Qk/RsX1zkYUxFx2dsnI4f7HrfTZH7M"',
-    id: {
-      kind: "youtube#video",
-      videoId: "uIGxFwheG-Q"
-    },
-    snippet: {
-      publishedAt: "2019-01-27T01:02:49.000Z",
-      channelId: "UC6xWZn2suKPqAQkidOiMeHg",
-      title: "그치만.. 이렇게라도 하지 않으면 딸기단 나에게 관심도 없는 걸!",
-      description:
-        "181101 ✿ 더보기를 눌러주세요 ✿ ❀ 에렌디라 후원하기 (Donate for Erendira) Twip(Twitch) : https://twip.kr/donate/erenjjing ❀ 유튜브 구독하기 ...",
-      thumbnails: {
-        default: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/default.jpg",
-          width: 120,
-          height: 90
-        },
-        medium: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/mqdefault.jpg",
-          width: 320,
-          height: 180
-        },
-        high: {
-          url: "https://i.ytimg.com/vi/uIGxFwheG-Q/hqdefault.jpg",
-          width: 480,
-          height: 360
-        }
-      },
-      channelTitle: "YouTube에렌디라",
-      liveBroadcastContent: "none"
-    }
-  }
-];
+import GoBackButton from "../../components/search/GoBackButton/GoBackButton";
 
 class SearchContainer extends Component {
   onSearch = keyword => {
@@ -360,21 +53,30 @@ class SearchContainer extends Component {
     document.body.appendChild(script);
   }
 
+  onClick = id => {
+    const { BaseActions, YoutubeActions } = this.props;
+    BaseActions.setVideoViewer(true);
+    YoutubeActions.setViewerId(id);
+  };
+
   componentDidMount() {
-    // this.loadYoutubeApi();
+    this.loadYoutubeApi();
   }
 
   render() {
     const { results, totalResults } = this.props;
     return (
-      <SearchTemplate searchBar={<SearchBar onSearch={this.onSearch} />}>
-        <SearchResults
-          // videos={results}
-          videos={a}
-          count={totalResults}
-          onSearchNext={this.onSearchNext}
-        />
-      </SearchTemplate>
+      <Fragment>
+        <SearchTemplate searchBar={<SearchBar onSearch={this.onSearch} />}>
+          <GoBackButton result={results} />
+          <SearchResults
+            videos={results}
+            count={totalResults}
+            onClick={this.onClick}
+            onSearchNext={this.onSearchNext}
+          />
+        </SearchTemplate>
+      </Fragment>
     );
   }
 }
@@ -390,6 +92,7 @@ const enhance = connect(
       pender.pending["search/PUBLIC_SEARCH"]
   }),
   dispatch => ({
+    YoutubeActions: bindActionCreators(youtubeActions, dispatch),
     FileActions: bindActionCreators(fileActions, dispatch),
     BaseActions: bindActionCreators(baseActions, dispatch),
     SearchActions: bindActionCreators(searchActions, dispatch)

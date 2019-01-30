@@ -1,0 +1,25 @@
+@import "utils";
+
+.go-back-btn {
+  float: right;
+  .go-btn {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    color: #fff;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    margin: 5px 0;
+    text-align: center;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    line-height: 42px !important;
+    font-size: 19px;
+    cursor: pointer;
+    .arrow {
+      padding-top: 0.1rem;
+      font-size: 2.4rem;
+    }
+  }
+}

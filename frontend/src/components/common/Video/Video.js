@@ -2,30 +2,49 @@ import React from "react";
 import classNames from "classnames/bind";
 import styles from "./Video.scss";
 
-import { Link } from "react-router-dom";
+import monent from "moment";
+import Button from "../Button";
 
 const cx = classNames.bind(styles);
 
-const Video = ({ video }) => {
+const Video = ({ video, onClick }) => {
   if (!video) return null;
-  const to = `/youtube/convert/${video.id}`;
 
   return (
     <div className={cx("video")}>
       {video.snippet.thumbnails.medium.url && (
-        <Link to={to} className={cx("thumbnail-wrapper")}>
+        <div
+          className={cx("thumbnail-wrapper")}
+          onClick={() => onClick(video.id)}
+        >
           {video.snippet.thumbnails.medium.url && (
             <img src={video.snippet.thumbnails.medium.url} alt="이미지" />
           )}
           <div className={cx("white-mask")} />
-        </Link>
+        </div>
       )}
       <div className={cx("video-content")}>
-        <h3>
-          <Link to={to}>{video.snippet.title}</Link>
+        <div className={cx("channel")}>{video.snippet.channelTitle}</div>
+        <h3 onClick={() => onClick(video.id)}>
+          <span>{video.snippet.title}</span>
         </h3>
-        <p>{video.snippet.description}</p>
+        <div className={cx("info")}>
+          <span className={cx("time")}>
+            {monent(video.snippet.publishedAt).format("LL")}
+          </span>
+        </div>
+        <div className={cx("btn-wrapper")}>
+          <Button theme="outline" className={cx("btn")}>
+            MP3 다운
+          </Button>
+          <Button theme="outline" className={cx("btn")}>
+            MP4 다운
+          </Button>
+        </div>
       </div>
+      <p onClick={() => onClick(video.id)} className={cx("description")}>
+        {video.snippet.description}
+      </p>
     </div>
   );
 };

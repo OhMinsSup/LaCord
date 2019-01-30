@@ -1,19 +1,20 @@
-import React from "react";
+import React, { Component } from "react";
 import classNames from "classnames/bind";
 import styles from "./VideoViewer.scss";
 
 const cx = classNames.bind(styles);
 
-const BASE_EMBED_URL = "https://www.youtube.com/embed/";
+class VideoViewer extends Component {
+  render() {
+    const { onOutSideClick } = this.props;
 
-const VideoViewer = ({ videoId }) => {
-  const embedUrl = `${BASE_EMBED_URL}${videoId}`;
-  return (
-    <div className={cx("video-viewer")}>
-      <div className={cx("video-wrapper")}>
-        <div className={cx("video")}>
+    const baseUrl = "https://www.youtube.com/embed/";
+    const embedUrl = `${baseUrl}${this.props.videoId}`;
+
+    return (
+      <div className={cx("video-viewer")} onClick={onOutSideClick}>
+        <div className={cx("player-wrapper")}>
           <iframe
-            className={cx("video-player")}
             src={embedUrl}
             frameBorder="0"
             allow="autoplay; encrypted-media"
@@ -22,8 +23,8 @@ const VideoViewer = ({ videoId }) => {
           />
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default VideoViewer;

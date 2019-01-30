@@ -37,14 +37,9 @@ const reducer = handleActions(
 export default applyPenders(reducer, [
   {
     type: PUBLIC_SEARCH,
-    onPending: (state, action) => {
-      return produce(state, draft => {
-        const { meta } = action;
-        draft.currentKeyword = meta.query;
-      });
-    },
     onSuccess: (state, action) => {
       return produce(state, draft => {
+        draft.currentKeyword = action.meta;
         draft.results = action.payload.result.items.map(item => ({
           ...item,
           id: item.id.videoId
@@ -62,6 +57,7 @@ export default applyPenders(reducer, [
           payload: { result }
         } = action;
         if (!draft.results) return;
+        draft.currentKeyword = action.meta;
 
         draft.results = draft.results.concat(
           result.items.map(item => ({
