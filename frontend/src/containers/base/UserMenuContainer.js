@@ -17,12 +17,25 @@ class UserMenuContainer extends Component {
     window.location.href = "/";
   };
 
+  onClick = () => {
+    const upload = document.createElement("input");
+    upload.type = "file";
+    upload.onchange = e => {
+      if (!upload.files) return;
+      const file = upload.files[0];
+      console.log(file);
+    };
+    upload.click();
+  };
+
   render() {
     const { userMenu, user } = this.props;
 
     if (!userMenu) return null;
 
-    return <UserMenu onLogout={this.onLogout} user={user} />;
+    return (
+      <UserMenu onLogout={this.onLogout} user={user} onClick={this.onClick} />
+    );
   }
 }
 

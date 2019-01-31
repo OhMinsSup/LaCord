@@ -19,6 +19,8 @@ class ConvertModalContainer extends Component {
       } else {
         await FileActions.convertUrl(selected, fileData.name, fileData.url);
       }
+
+      FileActions.setModal();
     } catch (e) {
       throw e;
     }

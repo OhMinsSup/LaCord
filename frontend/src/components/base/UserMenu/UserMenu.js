@@ -4,14 +4,21 @@ import styles from "./UserMenu.scss";
 
 const cx = classNames.bind(styles);
 
-const UserMenu = ({ onLogout, user }) => {
+const UserMenu = ({ onLogout, user, onClick }) => {
   return (
     <div className={cx("user-menu")}>
       <div className={cx("rotated-square")} />
       <div className={cx("menu-content")}>
         <div className={cx("thumbnail-wrapper")}>
-          <img src="https://avatars.io/platform/userId" alt="pp" />
-          <span>변경</span>
+          <img
+            src={
+              user.thumbnail
+                ? user.thumbnail
+                : "https://avatars.io/platform/userId"
+            }
+            alt="pp"
+          />
+          <span onClick={onClick}>변경</span>
         </div>
         <div className={cx("info-wrapper")}>
           <div className={cx("username")}>{user.username}</div>

@@ -1,11 +1,13 @@
 ## Lacord-Frontend
 
-Lacord는 파일을 변환시키기 위한 서비스 입니다.
-프론트엔드에서는 React, Redux, redux-pender, Webpack, Prettier, scss 기술들을 사용하였습니다.
+    Lacord는 이미지와 유튜브를  이미지 형식및 mp3, mp4로 변환 시키기 위한 서비스 입니다.
+    프론트엔드에서는 React, Redux, redux-pender, Webpack, Prettier, scss 기술들을 사용하였습니다.
 
 ## Features implemented:
 
-작성 준비중
+    - 구글, 드롭박스의 이미지 변환
+    - 유튜브 영상을 mp4및 mp3 형태로 변환
+    - url 입력시 이미지로 변환
 
 ## Packages used:
 

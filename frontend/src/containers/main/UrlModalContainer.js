@@ -58,10 +58,11 @@ class UrlModalContainer extends Component {
 
   onConvert = async () => {
     const { select, input } = this.state;
-    const { FileActions } = this.props;
+    const { FileActions, BaseActions } = this.props;
 
     try {
       await FileActions.convertUrl(select, input, input);
+      BaseActions.hideUrlModal();
     } catch (e) {
       throw e;
     }
