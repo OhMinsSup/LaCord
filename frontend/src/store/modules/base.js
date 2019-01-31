@@ -6,6 +6,7 @@ const HIDE_URL_MODAL = "base/HIDE_URL_MODAL";
 const SHOW_URL_MODAL = "base/SHOW_URL_MODAL";
 const YOUTUBE_LIBRARY_LOADED = "base/YOUTUBE_LIBRARY_LOADED";
 const SET_VIDEO_VIEWER = "base/SET_VIDEO_VIEWER";
+const SET_USER_MENU = "base/SET_USER_MENU";
 
 export const hideUserModal = createAction(HIDE_USER_MODAL);
 export const showUserModal = createAction(SHOW_USER_MODAL);
@@ -16,12 +17,14 @@ export const setVideoViewer = createAction(
   SET_VIDEO_VIEWER,
   visible => visible
 );
+export const setUserMenu = createAction(SET_USER_MENU, visible => visible);
 
 const initialState = {
   user_modal: false,
   url_modal: false,
   youtube_library_load: false,
-  viewer: false
+  viewer: false,
+  user_menu: false
 };
 
 export default handleActions(
@@ -49,6 +52,10 @@ export default handleActions(
     [SET_VIDEO_VIEWER]: (state, action) => ({
       ...state,
       viewer: action.payload
+    }),
+    [SET_USER_MENU]: (state, action) => ({
+      ...state,
+      user_menu: action.payload
     })
   },
   initialState

@@ -7,7 +7,7 @@ import Button from "../Button";
 
 const cx = classNames.bind(styles);
 
-const Video = ({ video, onClick }) => {
+const Video = ({ video, onClick, onConvert }) => {
   if (!video) return null;
 
   return (
@@ -34,10 +34,18 @@ const Video = ({ video, onClick }) => {
           </span>
         </div>
         <div className={cx("btn-wrapper")}>
-          <Button theme="outline" className={cx("btn")}>
+          <Button
+            theme="outline"
+            className={cx("btn")}
+            onClick={() => onConvert(video.id, "mp3", video.snippet.title)}
+          >
             MP3 다운
           </Button>
-          <Button theme="outline" className={cx("btn")}>
+          <Button
+            theme="outline"
+            className={cx("btn")}
+            onClick={() => onConvert(video.id, "mp4", video.snippet.title)}
+          >
             MP4 다운
           </Button>
         </div>

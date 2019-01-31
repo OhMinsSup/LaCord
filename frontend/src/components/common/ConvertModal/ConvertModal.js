@@ -24,6 +24,10 @@ class ConvertModal extends Component {
     });
   };
 
+  onConvert = () => {
+    this.props.onConvert(this.state.selected);
+  };
+
   render() {
     const { selected } = this.state;
     const { open, title, confirmText, fileData, onCancel } = this.props;
@@ -70,7 +74,11 @@ class ConvertModal extends Component {
               >
                 취소
               </Button>
-              <Button theme="outline" className={cx("button")}>
+              <Button
+                theme="outline"
+                className={cx("button")}
+                onClick={this.onConvert}
+              >
                 {confirmText}
               </Button>
             </div>

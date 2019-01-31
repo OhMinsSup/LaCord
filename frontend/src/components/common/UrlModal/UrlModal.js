@@ -17,6 +17,7 @@ const UrlModal = ({
   selected,
   onSelect,
   onChange,
+  onConvert,
   error
 }) => (
   <ModalWrapper open={open}>
@@ -43,11 +44,7 @@ const UrlModal = ({
           <Button className={cx("button")} theme="outline" onClick={onCancel}>
             취소
           </Button>
-          <Button
-            className={cx("button")}
-            theme="outline"
-            onClick={() => console.log("ds")}
-          >
+          <Button className={cx("button")} theme="outline" onClick={onConvert}>
             {confirmText}
           </Button>
         </div>

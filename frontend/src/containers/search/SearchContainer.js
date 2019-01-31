@@ -36,6 +36,16 @@ class SearchContainer extends Component {
     SearchActions.nextPublicSearch(currentKeyword, nextPageToken, 25);
   };
 
+  onConvert = (id, type, name) => {
+    const { FileActions } = this.props;
+
+    FileActions.convertYoutube(
+      `https://www.youtube.com/watch?v=${id}`,
+      name,
+      type
+    );
+  };
+
   loadYoutubeApi() {
     const { BaseActions } = this.props;
     const script = document.createElement("script");
@@ -74,6 +84,7 @@ class SearchContainer extends Component {
             count={totalResults}
             onClick={this.onClick}
             onSearchNext={this.onSearchNext}
+            onConvert={this.onConvert}
           />
         </SearchTemplate>
       </Fragment>

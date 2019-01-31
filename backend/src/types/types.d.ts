@@ -1,12 +1,5 @@
 export type ImageType = 'jpeg' | 'bmp' | 'tiff' | 'png' | 'gif';
 export type YouTudeType = 'mp3' | 'mp4';
-export type QualityType =
-  | 'highest'
-  | 'lowest'
-  | 'highestaudio'
-  | 'lowestaudio'
-  | 'highestvideo'
-  | 'lowestvideo';
 
 export interface UserToken {
   id: string;
@@ -26,5 +19,4 @@ export interface YouTudeOptions {
   type: YouTudeType;
   name: string;
   url: string;
-  quality: QualityType;
 }

@@ -10,6 +10,20 @@ class ConvertModalContainer extends Component {
     FileActions.setModal();
   };
 
+  onConvert = async selected => {
+    const { FileActions, fileData } = this.props;
+
+    try {
+      if (!fileData.url) {
+        await FileActions.convertImage(fileData, selected, fileData.name);
+      } else {
+        await FileActions.convertUrl(selected, fileData.name, fileData.url);
+      }
+    } catch (e) {
+      throw e;
+    }
+  };
+
   render() {
     const { fileData } = this.props;
     if (!fileData) return null;
@@ -18,6 +32,7 @@ class ConvertModalContainer extends Component {
       <ConvertModal
         open={!!fileData}
         fileData={fileData}
+        onConvert={this.onConvert}
         onCancel={this.onCancel}
         title="파일 변환하기"
         confirmText="변환"

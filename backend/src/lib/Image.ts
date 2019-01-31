@@ -1,18 +1,19 @@
 import * as Jimp from 'jimp';
-
 import { ImageOptions, ImageType } from '../types/types';
 
 class Image {
-  private app: Jimp = null;
-
   private name: string;
   private type: ImageType;
   private file_path?: string;
   private file_url?: string;
 
   constructor(self: ImageOptions) {
-    const splitName = self.name.split('.');
-    const name = splitName[0];
+    let name = null;
+
+    if (self.name) {
+      const splitName = self.name.split('.');
+      name = splitName[0];
+    }
 
     this.name = name;
     this.type = self.type;
@@ -21,11 +22,22 @@ class Image {
   }
 
   public async convert_v1() {
-    const { type, file_path, name, file_url, app } = this;
-    try {
-      const result = await app.read(file_path ? file_path : file_url);
+    const { type, file_path, file_url } = this;
 
-      return result.clone().write(`C:\\Locard-convert\\${name}.${type}`);
+    try {
+      if (file_path) {
+        const result = await Jimp.read(file_path);
+        return result.clone().write(`C:\\Locard-convert\\${this.name}.${type}`);
+      } else {
+        const result = await Jimp.read(file_url);
+        return result.clone().write(
+          !this.name
+            ? `C:\\Locard-convert\\${Math.random()
+                .toString(36)
+                .slice(2)}.${type}`
+            : this.name
+        );
+      }
     } catch (e) {
       throw new Error(e);
     }

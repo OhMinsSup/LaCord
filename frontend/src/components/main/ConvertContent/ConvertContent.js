@@ -70,6 +70,8 @@ class ConvertContent extends Component {
           .setCallback(data => {
             if (data.action === google.picker.Action.PICKED) {
               const { mimeType, name, sizeBytes, url } = data.docs[0];
+              console.log(data.docs[0]);
+
               onUpload({
                 name,
                 type: mimeType,
@@ -97,6 +99,8 @@ class ConvertContent extends Component {
     window.Dropbox.choose({
       success: file => {
         const { name, bytes, link } = file[0];
+        console.log(file[0]);
+
         name.split(".").map(name => type.push(name));
         onUpload({
           name,
@@ -168,7 +172,7 @@ class ConvertContent extends Component {
 
     return (
       <div className={cx("convert-content")}>
-        <h1>변환기</h1>
+        <h1>Lacord</h1>
         <div className={cx("container")}>
           <div className={cx("file-source-wrapper")}>
             <span className={cx("title")}>

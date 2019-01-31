@@ -56,6 +56,17 @@ class UrlModalContainer extends Component {
     BaseActions.hideUrlModal();
   };
 
+  onConvert = async () => {
+    const { select, input } = this.state;
+    const { FileActions } = this.props;
+
+    try {
+      await FileActions.convertUrl(select, input, input);
+    } catch (e) {
+      throw e;
+    }
+  };
+
   render() {
     const { input, error, select } = this.state;
     const { url_modal } = this.props;
@@ -68,6 +79,7 @@ class UrlModalContainer extends Component {
         selected={select}
         title="URL 변환"
         confirmText="변환"
+        onConvert={this.onConvert}
         onSelect={this.onSelect}
         onChange={this.onChange}
         onCancel={this.onCancel}

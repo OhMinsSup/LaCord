@@ -9,10 +9,15 @@ const cx = classNames.bind(styles);
 
 class SearchResults extends Component {
   renderList() {
-    const { videos, onClick } = this.props;
+    const { videos, onClick, onConvert } = this.props;
 
     return videos.map((video, index) => (
-      <Video key={index} video={video} onClick={onClick} />
+      <Video
+        key={index}
+        video={video}
+        onClick={onClick}
+        onConvert={onConvert}
+      />
     ));
   }
 
