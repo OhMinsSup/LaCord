@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import { Home, Auth, Search } from "./page";
 import ConvertModalContainer from "./containers/main/ConvertModalContainer";
 import UrlModalContainer from "./containers/main/UrlModalContainer";
+import Core from "./containers/base/Core";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route path="/auth" component={Auth} />
         <Route path="/search" component={Search} />
       </Switch>
+      <Core />
       <UrlModalContainer />
       <ConvertModalContainer />
     </Fragment>
