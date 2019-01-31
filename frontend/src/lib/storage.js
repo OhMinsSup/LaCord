@@ -1,3 +1,5 @@
+const st = typeof localStorage === "object" ? localStorage : {};
+
 const storage = {
   set: (key, object) => {
     if (!localStorage) return;
@@ -23,6 +25,11 @@ const storage = {
 
     if (localStorage[key]) {
       localStorage.removeItem(key);
+    }
+  },
+  clear() {
+    if (st.clear) {
+      st.clear();
     }
   }
 };

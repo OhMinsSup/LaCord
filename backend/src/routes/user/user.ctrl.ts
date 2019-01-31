@@ -8,7 +8,7 @@ import { decode, generate } from '../../lib/token';
 
 export const unregister: Middleware = async (ctx: Context) => {
   type BodySchema = {
-    unregisterToken: string;
+    unregister_token: string;
   };
   const { username, id }: UserToken = ctx['user'];
 
@@ -24,10 +24,10 @@ export const unregister: Middleware = async (ctx: Context) => {
     return;
   }
 
-  const { unregisterToken }: BodySchema = ctx.request.body;
+  const { unregister_token }: BodySchema = ctx.request.body;
   const userCustomRespository = await getCustomRepository(UserRepository);
   try {
-    const decoded = await decode(unregisterToken);
+    const decoded = await decode(unregister_token);
 
     if (decoded['username'] !== username) {
       ctx.status = 400;
@@ -56,6 +56,31 @@ export const generateUnregisterToken: Middleware = async (ctx: Context) => {
 
     ctx.body = {
       unregister_token: token,
+    };
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
+
+export const getUserInfo: Middleware = async (ctx: Context) => {
+  const { id }: UserToken = ctx['user'];
+
+  const userCustomRespository = await getCustomRepository(UserRepository);
+
+  try {
+    const user = await userCustomRespository.findByUserId(id);
+    if (!user) {
+      ctx.status = 401;
+      return;
+    }
+
+    ctx.body = {
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        thumbnail: user.thumbnail,
+      },
     };
   } catch (e) {
     ctx.throw(500, e);

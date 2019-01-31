@@ -4,7 +4,7 @@ import styles from "./UserMenu.scss";
 
 const cx = classNames.bind(styles);
 
-const UserMenu = ({ onLogout, user, onClick }) => {
+const UserMenu = ({ onLogout, user, onClick, onAskUnregister }) => {
   return (
     <div className={cx("user-menu")}>
       <div className={cx("rotated-square")} />
@@ -16,7 +16,7 @@ const UserMenu = ({ onLogout, user, onClick }) => {
                 ? user.thumbnail
                 : "https://avatars.io/platform/userId"
             }
-            alt="pp"
+            alt="thumbnail"
           />
           <span onClick={onClick}>변경</span>
         </div>
@@ -30,7 +30,9 @@ const UserMenu = ({ onLogout, user, onClick }) => {
       </div>
       <div className={cx("footer-wrapper")}>
         <div className={cx("unregister")}>
-          <button className={cx("btn")}>회원 탈퇴</button>
+          <button className={cx("btn")} onClick={onAskUnregister}>
+            회원 탈퇴
+          </button>
         </div>
         <div className={cx("logout")}>
           <button className={cx("btn")} onClick={onLogout}>

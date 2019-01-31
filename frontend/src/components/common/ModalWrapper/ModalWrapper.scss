@@ -24,7 +24,7 @@
 
 .ModalWrapper {
   position: relative;
-  z-index: z("modal");
+  z-index: 999;
   .dimmer {
     background: rgba(10, 10, 10, 0.5);
     position: fixed;

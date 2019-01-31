@@ -6,5 +6,6 @@ const user = new Router();
 
 user.get('/unregister-token', needAuth, userCtrl.generateUnregisterToken);
 user.post('/unregister', needAuth, userCtrl.unregister);
+user.get('/info', needAuth, userCtrl.getUserInfo);
 
 export default user;

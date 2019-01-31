@@ -19,3 +19,14 @@ export const convertUrl = (type, name, url) =>
 
 export const convertYoutube = (url, name, type) =>
   axios.post("/files/convert-youtube", { url, name, type });
+
+export const createThumbnail = file => {
+  const data = new FormData();
+  data.append("thumbnail", file);
+  return axios.post("/files/create-url/thumbnail", data, {
+    headers: {
+      "Content-Type": file.type
+    },
+    withCredentials: false
+  });
+};

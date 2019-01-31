@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { applyPenders } from "redux-pender";
 
 import * as fileAPI from "../../lib/api/file";
+import produce from "immer";
 
 const SET_FILE = "file/SET_FILE";
 const SET_MODAL = "file/SET_MODAL";
@@ -9,6 +10,7 @@ const CONVERT_IMAGE = "file/CONVERT_IMAGE";
 const CONVERT_YOUTUBE = "file/CONVERT_YOUTUBE";
 const CONVERT_URL = "file/CONVERT_URL";
 const INITIALIZE = "file/INITIALIZE";
+const CREATE_THUMBNAIL = "file/CREATE_THUMBNAIL";
 
 export const setFile = createAction(SET_FILE, file => file);
 export const setModal = createAction(SET_MODAL);
@@ -19,10 +21,16 @@ export const convertYoutube = createAction(
 );
 export const convertUrl = createAction(CONVERT_URL, fileAPI.convertUrl);
 export const initialize = createAction(INITIALIZE);
+export const createThumbnail = createAction(
+  CREATE_THUMBNAIL,
+  fileAPI.createThumbnail
+);
 
 export const initialState = {
   fileData: null,
-  result: false
+  result: false,
+  user_thumbnail: null,
+  status: false
 };
 
 const reducer = handleActions(
@@ -64,5 +72,14 @@ export default applyPenders(reducer, [
       ...state,
       result: action.payload.data.status === 200 ? true : false
     })
+  },
+  {
+    type: CREATE_THUMBNAIL,
+    onSuccess: (state, action) => {
+      return produce(state, draft => {
+        draft.user_thumbnail = action.payload.data;
+        draft.status = true;
+      });
+    }
   }
 ]);

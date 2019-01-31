@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+
+import * as userActions from "../../store/modules/user";
 import * as fileActions from "../../store/modules/file";
 import * as baseActions from "../../store/modules/base";
 
@@ -19,9 +21,14 @@ class Main extends Component {
   };
 
   render() {
+    const { logged } = this.props;
     return (
       <Fragment>
-        <ConvertContent onUpload={this.onUpload} onClick={this.onClick} />
+        <ConvertContent
+          onUpload={this.onUpload}
+          onClick={this.onClick}
+          logged={logged}
+        />
         <IntroductionCards />
       </Fragment>
     );
@@ -29,8 +36,11 @@ class Main extends Component {
 }
 
 const enhance = connect(
-  ({ base, file }) => ({}),
+  ({ user }) => ({
+    logged: !!user.user
+  }),
   dispatch => ({
+    UserActions: bindActionCreators(userActions, dispatch),
     BaseActions: bindActionCreators(baseActions, dispatch),
     FileActions: bindActionCreators(fileActions, dispatch)
   })

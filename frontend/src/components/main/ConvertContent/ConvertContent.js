@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import classNames from "classnames/bind";
 import styles from "./ConvertContent.scss";
+
 import {
   FaGoogleDrive,
   FaDropbox,
@@ -10,9 +11,9 @@ import {
   FaLaptop,
   FaYoutube
 } from "react-icons/fa";
+import loadScript from "load-script";
 
 import DropdownButton from "../DropdownButton/DropdownButton";
-import loadScript from "load-script";
 
 const google = (window.google = window.google ? window.google : {});
 const cx = classNames.bind(styles);
@@ -164,6 +165,7 @@ class ConvertContent extends Component {
   }
 
   render() {
+    const { logged } = this.props;
     const { lable_title } = this.state;
     const {
       onGoogleDriveClick,
@@ -219,6 +221,7 @@ class ConvertContent extends Component {
                     type={lable_title === "Link"}
                     to="/search"
                     name="Youtuebe"
+                    logged={logged}
                     onMouseOver={this.onMouseOver}
                   />
                 </div>

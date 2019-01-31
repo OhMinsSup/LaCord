@@ -76,15 +76,6 @@
         text-decoration: none;
         transition: opacity 0.15s ease-in-out, color 0.15s ease-in-out,
           background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-        ::before {
-          content: "";
-          display: block;
-          width: 100%;
-          height: 100%;
-          position: absolute;
-          top: 0;
-          left: 0;
-        }
         svg {
           color: $oc-gray-8;
           shape-rendering: geometricPrecision;

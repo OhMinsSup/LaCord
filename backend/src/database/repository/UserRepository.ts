@@ -27,6 +27,14 @@ class UserRepository extends Repository<User> {
       .execute();
   }
 
+  public updateThumbnail(url: string, id: string) {
+    return this.createQueryBuilder()
+      .update(User)
+      .set({ thumbnail: url })
+      .where('id=:id', { id })
+      .execute();
+  }
+
   public localRegister(email: string, password: string, username: string) {
     const user = new User();
     user.username = username;
