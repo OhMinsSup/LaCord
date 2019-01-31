@@ -1,17 +1,17 @@
-Lacord-Backend
+# Lacord-Backend
     
     Lacord는 파일을 변환시키기 위한 서비스 입니다. 
     백엔드에서는 Koa, Postgresql, Typescript, Webpack, Prettier, Jest, Typeorm 기술들을 사용하였습니다.
 
-Features implemented:
+# Features implemented:
     
     작성 준비중
 
-Packages used:
+# Packages used:
     
     package.json로 확인해주세요
 
-On the backend:
+# On the backend:
     
     Koa (RestAPI - typescript - Server ❤️)
     Typeorm (typescript - ORM 💪🏻)
@@ -21,7 +21,7 @@ On the backend:
     Webpack (build 📃)
     Jest (test framework 📃)
     
-참고 사이드: 
+# 참고 사이드: 
 
 [유튜브 변환](https://github.com/leerob/youtube-to-mp3/blob/master/src/containers/app.container.jsx)
 
@@ -44,3 +44,5 @@ On the backend:
 [이미지 변환3](https://www.npmjs.com/package/jimp)
 
 [이미지 변환 응용](https://medium.com/@rossbulat/image-processing-in-nodejs-with-jimp-174f39336153)
+
+[파일 다운로드및 업로드](https://zhuanlan.zhihu.com/p/35064819)

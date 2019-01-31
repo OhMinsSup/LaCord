@@ -9,16 +9,24 @@
       opacity: 1;
     }
   }
+  .rotated-square {
+    z-index: 0;
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    background: #fff;
+    transform: rotate(45deg);
+    right: 16px;
+    top: -8px;
+  }
   display: block;
   background: #fff;
   border: 1px solid #ccc;
   border-color: rgba(0, 0, 0, 0.2);
   color: #000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
   position: absolute;
   right: 0;
-  top: 44px;
+  top: 54px;
   animation: effect 0.2s;
   border-radius: 2px;
   outline: none;
@@ -26,6 +34,7 @@
   transform: translateZ(0);
   text-align: left;
   line-height: normal;
+  right: 10px;
   .menu-content {
     margin: 20px;
     white-space: nowrap;
@@ -109,6 +118,9 @@
         white-space: nowrap;
         background: #f8f8f8;
         border: 1px solid #c6c6c6;
+        &:hover {
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
       }
     }
 
@@ -127,6 +139,9 @@
         white-space: nowrap;
         background: #f8f8f8;
         border: 1px solid #c6c6c6;
+        &:hover {
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
       }
     }
   }

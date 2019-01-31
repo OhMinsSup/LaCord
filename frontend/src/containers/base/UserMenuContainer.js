@@ -6,12 +6,15 @@ import * as userActions from "../../store/modules/user";
 import * as baseActions from "../../store/modules/base";
 
 import UserMenu from "../../components/base/UserMenu";
+import storage from "../../lib/storage";
 
 class UserMenuContainer extends Component {
   onLogout = () => {
     const { UserActions } = this.props;
 
     UserActions.logout();
+    storage.remove("__Lacord__");
+    window.location.href = "/";
   };
 
   render() {
@@ -19,7 +22,7 @@ class UserMenuContainer extends Component {
 
     if (!userMenu) return null;
 
-    return <UserMenu onLogout={this.onLogout} />;
+    return <UserMenu onLogout={this.onLogout} user={user} />;
   }
 }
 

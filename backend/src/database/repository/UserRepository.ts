@@ -19,6 +19,14 @@ class UserRepository extends Repository<User> {
     });
   }
 
+  public unRegister(id: string) {
+    return this.createQueryBuilder()
+      .delete()
+      .from(User)
+      .where('id=:id', { id })
+      .execute();
+  }
+
   public localRegister(email: string, password: string, username: string) {
     const user = new User();
     user.username = username;

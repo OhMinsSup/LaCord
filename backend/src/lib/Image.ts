@@ -1,4 +1,5 @@
 import * as Jimp from 'jimp';
+import * as os from 'os';
 import { ImageOptions, ImageType } from '../types/types';
 
 class Image {
@@ -27,15 +28,15 @@ class Image {
     try {
       if (file_path) {
         const result = await Jimp.read(file_path);
-        return result.clone().write(`C:\\Locard-convert\\${this.name}.${type}`);
+        return result.clone().write(`${os.homedir()}\\${this.name}.${type}`);
       } else {
         const result = await Jimp.read(file_url);
-        return result.clone().write(
+        return result.writeAsync(
           !this.name
-            ? `C:\\Locard-convert\\${Math.random()
+            ? `${os.homedir()}\\${Math.random()
                 .toString(36)
                 .slice(2)}.${type}`
-            : this.name
+            : `${os.homedir()}\\${this.name}`
         );
       }
     } catch (e) {

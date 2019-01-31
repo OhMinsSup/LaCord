@@ -10,6 +10,7 @@ import {
   FaLaptop,
   FaYoutube
 } from "react-icons/fa";
+
 import DropdownButton from "../DropdownButton/DropdownButton";
 import loadScript from "load-script";
 
@@ -46,7 +47,7 @@ class ConvertContent extends Component {
       {
         client_id:
           "23034082308-13i77g116r2ovl7r8o11b12f3a25fj88.apps.googleusercontent.com",
-        scope: ["https://www.googleapis.com/auth/drive.file"]
+        scope: ["https://www.googleapis.com/auth/drive.appdata"]
       },
       oauthClient => {
         if (oauthClient && !oauthClient.error) {
@@ -66,11 +67,12 @@ class ConvertContent extends Component {
       if (this.oauthToken) {
         const picker = new google.picker.PickerBuilder()
           .setOAuthToken(this.oauthToken)
+          .setDeveloperKey("AIzaSyDdoZtg1qfZDECpxDC_C7c6ht-xCgMaFyQ")
           .addView(new google.picker.DocsView())
+          .addView(google.picker.ViewId.PHOTOS)
           .setCallback(data => {
             if (data.action === google.picker.Action.PICKED) {
               const { mimeType, name, sizeBytes, url } = data.docs[0];
-              console.log(data.docs[0]);
 
               onUpload({
                 name,
@@ -97,11 +99,11 @@ class ConvertContent extends Component {
     let type = [];
 
     window.Dropbox.choose({
+      linkType: "direct",
       success: file => {
         const { name, bytes, link } = file[0];
-        console.log(file[0]);
-
         name.split(".").map(name => type.push(name));
+
         onUpload({
           name,
           size: bytes,

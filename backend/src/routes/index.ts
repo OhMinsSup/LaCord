@@ -10,9 +10,7 @@ router.use('/files', files.routes());
 // test api
 router.get('/', ctx => {
   ctx.set('content-type', 'application/json');
-  ctx.body = {
-    payload: 'Hello Jest',
-  };
+  ctx.body = 'test';
 });
 
 export default router;
